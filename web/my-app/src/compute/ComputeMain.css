@@ -50,5 +50,17 @@
     height: 40px;
     border: none;
     border-radius: 5px 5px 5px 5px;
-    background-color: #147bd1;
+    background-color: #3182f6;
+    color: white;
+}
+
+.submit-btn:hover {
+    background-color: black;
+}
+
+.result-list {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }

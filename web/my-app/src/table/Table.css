@@ -1,0 +1,25 @@
+table {
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    width: 650px;
+}
+table th {
+    /* border: 1px solid black; */
+    margin-left: 10px;
+}
+table tr {
+    border: 1px solid black;
+}
+table td {
+    border: 1px solid black;
+}
+table td:hover {
+    background-color: #e9eaeb;
+}
+
+span {
+    float: left;
+    color: grey;
+}

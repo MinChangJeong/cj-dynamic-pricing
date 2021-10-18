@@ -1,5 +1,6 @@
 import "./ComputeMain.css"
-import { Button } from 'antd';
+import Card from "../card/Card.js"
+import Table from '../table/Table.js'
 
 function ComputeMain() {
   return (
@@ -9,7 +10,7 @@ function ComputeMain() {
         <h5 className="bottom-header-text">입고비와 보관비는 제외되어 있어요.</h5>
       </div>
       <div className="body">
-        <form className="post-form" action="post">
+        <form className="post-form" action="" method="post">
           <div className="post-code">
             <span>배송 권역</span>
             <input type="text" name="" id="" placeholder ="수도권/비수도권"/>
@@ -26,6 +27,10 @@ function ComputeMain() {
             계산하기
           </button>
         </form>
+      </div>
+      <div className="result-list">
+        <Table />
+        <Card />
       </div>
     </div>
   );
