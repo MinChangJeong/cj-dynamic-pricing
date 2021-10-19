@@ -1,8 +1,16 @@
 import "./Card.css"
+import React, {useState, useEffect} from 'react';
 
 // 상품 옵션을 받을 때 state로 받아야함
 
-function Card() {
+function Card(props) {
+  const [option, setOption] = useState("상온");
+
+  // useEffect(() => {
+  //   setOption(props.option);
+  // }, [])
+
+
   return (
     <div className="card">
       {/* <div className="card-header">
@@ -14,12 +22,14 @@ function Card() {
           <span>택배 비용</span>
           <span className="cost">0,000원/ 건</span>
         </div>
-        <div>
-          <span>선택옵션</span>
+        <div >
+          {/* <span className="option-title">선택옵션</span>
           <div>
-            <span >상온/냉장/냉동</span>
+            <span className="option">상온/냉장/냉동</span>
             <span className="cost">0,000/ 건</span>
-          </div>
+          </div> */}
+          <span>{`선택 옵션 (${option})`}</span>
+          <span className="cost">0,000원/ 건</span>
         </div>
         <div>
           <span>할인 혜택</span>

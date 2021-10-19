@@ -63,43 +63,43 @@ function Table() {
           <th>{`${future_month}월 ${future_date}일 (${future_week})`}</th>
         </tr>
         <tr>
-          <td>10:00 ~ 12:00</td>
+          <td className="time">10:00 ~ 12:00</td>
           <td>0,000원</td>
           <td>0,000원</td>
           <td>0,000원</td>
         </tr>
         <tr>
-          <td>12:00 ~ 16:00</td>
+          <td className="time">12:00 ~ 16:00</td>
           <td>0,000원</td>
           <td>0,000원</td>
           <td>0,000원</td>
         </tr>
         <tr>
-          <td>15:00 ~ 19:00</td>
+          <td className="time">15:00 ~ 19:00</td>
           <td>0,000원</td>
           <td>0,000원</td>
           <td>0,000원</td>
         </tr>
         <tr>
-          <td>16:00 ~ 20:00</td>
+          <td className="time">16:00 ~ 20:00</td>
           <td>0,000원</td>
           <td>0,000원</td>
           <td>0,000원</td>
         </tr>
         <tr>
-          <td>18:00 ~ 21:00</td>
+          <td className="time">18:00 ~ 21:00</td>
           <td>0,000원</td>
           <td>0,000원</td>
           <td>0,000원</td>
         </tr>
         <tr>
-          <td>21:00 ~ 23:59</td>
+          <td className="time">21:00 ~ 23:59</td>
           <td>0,000원</td>
           <td>0,000원</td>
           <td>0,000원</td>
         </tr>
         <tr>
-          <td>추천</td>
+          <td className="time">추천</td>
           <td>0,000원</td>
           <td>0,000원</td>
           <td>0,000원</td>
