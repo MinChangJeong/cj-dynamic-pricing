@@ -31,6 +31,16 @@
     flex-direction: column;
     align-items: baseline;
 }
+.option-title {
+    border: 1px solid black;
+    width: 100px;
+}
+.option {
+    border: 1px solid black;
+    position: relative;
+    left: 40px;
+}
+
 .card-body div {
     margin-left: 9px;
     width: 320px;
@@ -56,5 +66,5 @@
     border-top: 1px solid lightblue;
 }
 .result-cost span {
-    color: cornflowerblue;
+    color: #3182f6;
 }

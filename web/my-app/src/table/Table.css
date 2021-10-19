@@ -18,7 +18,9 @@ table td {
 table td:hover {
     background-color: #e9eaeb;
 }
-
+.time:hover {
+    background-color: white;
+}
 span {
     float: left;
     color: grey;
