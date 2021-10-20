@@ -2,23 +2,34 @@ import "./Table.css"
 import React, {useState, useEffect} from 'react';
 
 function Table() {
-  const now = new Date();
+  // const now = new Date();
 
-  const [now_month, setMonth] = useState(now.getMonth()+1)
-  const [now_date, setDate] = useState(now.getDate());
-  const [now_week, setNowWeek] = useState(now.getDay());
+  const [now, setNow] = useState(new Date());
+  const [nowInfo, setNowInfo] = useState(
+    {
+      month : now.getMonth()+1,
+      date : now.getDate(),
+      week : now.get_week(),
+    }
+  )
 
-  const tommorow = new Date(now.setDate(now.getDate()+1));
+  const [tommorow, setTommorow] = useState(new Date(now.setDate(now.getDate()+1)));
+  const [tommorowInfo, setTommorowInfo] = useState(
+    {
+      month : tommorow.getMonth()+1,
+      date : tommorow.getDate(),
+      week : tommorow.get_week(),
+    }
+  )
 
-  const [tom_month, setTomMonth] = useState(tommorow.getMonth()+1)
-  const [tom_date, setTomDate] = useState(tommorow.getDate());
-  const [tom_week, setTomWeek] = useState(tommorow.getDay());
-
-  const future = new Date(tommorow.setDate(tommorow.getDate()+1));
-
-  const [future_month, setFutureMonth] = useState(future.getMonth()+1)
-  const [future_date, setFutureDate] = useState(future.getDate());
-  const [future_week, setFutureWeek] = useState(future.getDay());
+  const [future, setFuture] = useState(new Date(tommorow.setDate(tommorow.getDate()+1)));
+  const [futureInfo, setFutureInfo] = useState(
+    {
+      month : future.getMonth()+1,
+      date : future.getDate(),
+      week : future.get_week(),
+    }
+  )
   
   const get_week = (week) =>{
     if(week == 0) {
@@ -45,22 +56,31 @@ function Table() {
   }
 
   useEffect(() => {
-    setNowWeek(get_week(now_week))
-    setTomWeek(get_week(tom_week))
-    setFutureWeek(get_week(future_week))
+    setNowInfo(get_week(nowInfo.week));
+    setTommorowInfo(get_week(tommorowInfo.week));
+    setFutureInfo(get_week(futureInfo.week));
+
   }, [])
 
   // ex)10/19 10~13 배송비용 대한 state값이 있어야 함 (row : 7, column : 3 )
   
+  const [fees, setFees] = useState(
+    {
+      nowFees : [],
+      tommorowFees : [],
+      futureFees : [],
+    }
+  );
+
 
   return (
     <div className="table">
       <table>
         <tr>
           <th>일자/시간</th>
-          <th>{`${now_month}월 ${now_date}일 (${now_week})`}</th>
-          <th>{`${tom_month}월 ${tom_date}일 (${tom_week})`}</th>
-          <th>{`${future_month}월 ${future_date}일 (${future_week})`}</th>
+          <th>{`${nowInfo.month}월 ${nowInfo.date}일 (${nowInfo.week})`}</th>
+          <th>{`${tommorowInfo.month}월 ${tommorowInfo.date}일 (${tommorowInfo.week})`}</th>
+          <th>{`${futureInfo.month}월 ${futureInfo.date}일 (${futureInfo.week})`}</th>
         </tr>
         <tr>
           <td className="time">10:00 ~ 12:00</td>
