@@ -2,14 +2,13 @@ import "./Table.css"
 import React, {useState, useEffect} from 'react';
 
 function Table() {
-  // const now = new Date();
 
   const [now, setNow] = useState(new Date());
   const [nowInfo, setNowInfo] = useState(
     {
       month : now.getMonth()+1,
       date : now.getDate(),
-      week : now.get_week(),
+      week : now.getDay(),
     }
   )
 
@@ -18,7 +17,7 @@ function Table() {
     {
       month : tommorow.getMonth()+1,
       date : tommorow.getDate(),
-      week : tommorow.get_week(),
+      week : tommorow.getDay(),
     }
   )
 
@@ -27,9 +26,10 @@ function Table() {
     {
       month : future.getMonth()+1,
       date : future.getDate(),
-      week : future.get_week(),
+      week : future.getDay(),
     }
   )
+
   
   const get_week = (week) =>{
     if(week == 0) {
@@ -56,21 +56,32 @@ function Table() {
   }
 
   useEffect(() => {
-    setNowInfo(get_week(nowInfo.week));
-    setTommorowInfo(get_week(tommorowInfo.week));
-    setFutureInfo(get_week(futureInfo.week));
+    setNowInfo({
+      ...nowInfo,
+      week : get_week(nowInfo.week)
+    });
+    setTommorowInfo({
+      ...tommorowInfo, 
+      week : get_week(tommorowInfo.week),
+    });
+    setFutureInfo({
+      ...futureInfo, 
+      week : get_week(futureInfo.week),
+    });
 
   }, [])
 
   // ex)10/19 10~13 배송비용 대한 state값이 있어야 함 (row : 7, column : 3 )
   
-  const [fees, setFees] = useState(
+  const [charges, setCharges] = useState(
     {
-      nowFees : [],
-      tommorowFees : [],
-      futureFees : [],
+      nowCharges : [],
+      tommorowCharges : [],
+      futureCharges : [],
     }
   );
+
+  // 값을 받아오는걸 socket으로 받아와야함
 
 
   return (
@@ -84,7 +95,7 @@ function Table() {
         </tr>
         <tr>
           <td className="time">10:00 ~ 12:00</td>
-          <td>0,000원</td>
+          <td>{`${charges.nowCharges[0]}`}</td>
           <td>0,000원</td>
           <td>0,000원</td>
         </tr>
