@@ -2,7 +2,6 @@ import "./Table.css"
 import React, {useState, useEffect} from 'react';
 
 function Table() {
-  // const now = new Date();
 
   const [now, setNow] = useState(new Date());
   const [nowInfo, setNowInfo] = useState(
@@ -82,6 +81,8 @@ function Table() {
     }
   );
 
+  // 값을 받아오는걸 socket으로 받아와야함
+
 
   return (
     <div className="table">
@@ -94,7 +95,7 @@ function Table() {
         </tr>
         <tr>
           <td className="time">10:00 ~ 12:00</td>
-          <td>0,000원</td>
+          <td>{`${charges.nowCharges[0]}`}</td>
           <td>0,000원</td>
           <td>0,000원</td>
         </tr>
