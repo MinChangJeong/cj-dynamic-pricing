@@ -9,6 +9,7 @@ import socketIO from 'socket.io-client';
 import axios from 'axios'
 
 function App() {
+  // flask 연결 예시
   const [getMessage, setGetMessage] = useState([]);
 
   useEffect(() => {
