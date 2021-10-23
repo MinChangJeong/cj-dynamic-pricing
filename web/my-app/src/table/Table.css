@@ -23,7 +23,3 @@ table td:hover {
 .time:hover {
     background-color: white;
 }
-span {
-    float: left;
-    color: grey;
-}

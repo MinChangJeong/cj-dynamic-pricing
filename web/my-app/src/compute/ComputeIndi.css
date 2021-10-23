@@ -8,7 +8,7 @@
     flex-direction: row;
 }
 
-span {
+.title {
     /* border: 1px solid black; */
     font-weight: bold;
     margin-left: 30px;
@@ -44,4 +44,23 @@ button:hover {
     height: 30px;
     margin-top: 3px;
     margin-left: 20px;
+}
+
+.cost-info {
+    border: 1px solid black;
+    width: 500px;
+    height: 150px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 700px;
+    bottom: 500px;
+    background-color: #f9fafb;
+}
+
+.cost-info span {
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 12px;
 }
