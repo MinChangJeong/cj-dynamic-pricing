@@ -88,12 +88,12 @@ function App() {
           {
             btnCor ? (
               <div>
-                {/* <span style={{ borderTop:"2opx"}}>입고비와 보관비를 확인할 수 있습니다.</span> */}
+                {/* <span >입고비와 보관비를 확인할 수 있습니다.</span> */}
                 <ComputeCor />
               </div>
             ) : btnIndi ?(
               <div>
-                {/* <span style={{ color:"lightslategray", borderTop:"2opx"}}>배송방법을 선택 할 수 있습니다.</span> */}
+                {/* <span >배송방법을 선택 할 수 있습니다.</span> */}
                 <ComputeIndi />
               </div>
             ) : (

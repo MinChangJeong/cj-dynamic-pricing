@@ -48,7 +48,7 @@ button:hover {
 
 .cost-info {
     border: 1px solid black;
-    width: 500px;
+    width: 450px;
     height: 150px;
     margin-left: 20px;
     display: flex;
@@ -57,6 +57,8 @@ button:hover {
     left: 700px;
     bottom: 500px;
     background-color: #f9fafb;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .cost-info span {
