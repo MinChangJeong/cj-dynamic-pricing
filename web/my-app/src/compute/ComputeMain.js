@@ -18,14 +18,13 @@ function ComputeMain() {
       productOption : productOption,
     }
 
-    // socket 통신 부분
   }
 
 
   return (
     <div className="ComputeMain">
       <div className="header">
-        <h1 className="top-header-text">e-풀필먼트 배송비 계산기</h1>
+        {/* <h1 className="top-header-text">e-풀필먼트 배송비 계산기</h1> */}
         <h5 className="bottom-header-text">입고비와 보관비는 제외되어 있어요.</h5>
       </div>
       <div className="body">
