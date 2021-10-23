@@ -51,10 +51,10 @@ function App() {
     <div className="App"> 
       <h1>e-풀필먼트 배송비 계산기</h1>
       <div>
-        <img src= {step1} alt="" />
-        <img src= {step2} alt="" />
-        <img src= {step3} alt="" />
-        <img src= {step4} alt="" />
+        <img className="img" src= {step1} alt="" />
+        <img className="img" src= {step2} alt="" />
+        <img className="img" src= {step3} alt="" />
+        <img className="img" src= {step4} alt="" />
       </div>
       {/* <div className="body">
         <div>

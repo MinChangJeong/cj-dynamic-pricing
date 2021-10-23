@@ -38,3 +38,10 @@ button:hover {
     background-color: #3182f6;
     color: white;
 }
+
+.icon {
+    width: 30px;
+    height: 30px;
+    margin-top: 3px;
+    margin-left: 20px;
+}

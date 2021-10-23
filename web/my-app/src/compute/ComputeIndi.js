@@ -2,6 +2,8 @@ import "./ComputeIndi.css"
 import React, {useState, useEffect} from 'react';
 import Table from '../table/Table.js'
 
+import icon from '../img/icon1.png'
+
 function ComputeIndi() {
   const ChangeColorBtn1 = () => {
     document.getElementById("btn1").style.backgroundColor="#3182f6"
@@ -53,6 +55,7 @@ function ComputeIndi() {
           <div className="sub">
             <span>상품 금액</span>
             <input type="text" placeholder=""/>
+            <img className="icon" src={icon} alt="" />
           </div>
           <div className="sub">
             <span>상품 옵션</span>
