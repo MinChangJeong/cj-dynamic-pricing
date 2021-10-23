@@ -5,6 +5,8 @@ import Table from '../table/Table.js'
 import icon from '../img/icon1.png'
 
 function ComputeIndi() {
+  const [costInfo, setCostInfo] = useState(false);
+
   const ChangeColorBtn1 = () => {
     document.getElementById("btn1").style.backgroundColor="#3182f6"
     document.getElementById("btn1").style.color="white"
@@ -49,16 +51,19 @@ function ComputeIndi() {
     <div className="ComputeIndi">
       <div className="container">
           <div className="sub">
-            <span>받으시는 분 배송 권역</span>
+            <span className="title">받으시는 분 배송 권역</span>
             <input type="text" placeholder=""/>
           </div>
           <div className="sub">
-            <span>상품 금액</span>
+            <span className="title">상품 금액</span>
             <input type="text" placeholder=""/>
-            <img className="icon" src={icon} alt="" />
+            <img className="icon" src={icon} onClick={
+              () => setCostInfo(!costInfo)
+            }/>
+            
           </div>
           <div className="sub">
-            <span>상품 옵션</span>
+            <span className="title">상품 옵션</span>
             <button id="btn1" onClick={
               () => {
                 setNExpress(true)
@@ -86,6 +91,20 @@ function ComputeIndi() {
           </div>
           <Table />
         </div>
+        {
+          costInfo ?  (
+            <div className="cost-info">
+              <span style={{marginTop:"10px"}}>고객 택배 할증 요금 기준</span>
+              &nbsp;
+              <span>50 ~ 100 만원 : 2000원</span>
+              <span>100 ~ 200 만원 : 4000원</span>
+              <span>200 ~ 300 만원 : 6000원</span>
+              &nbsp;
+              <span>300만원 이상은 취급하지 않습니다.</span>
+              <span>할증 요금을 내지 않을 경우 파손시 최대 50만원까지만 보상 받을수 있습니다.</span>
+            </div>
+          ) : null
+        }
     </div>
   );
 }
