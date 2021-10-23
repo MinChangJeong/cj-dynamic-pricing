@@ -4,6 +4,8 @@ table {
     border-right: none;
     border-bottom: none;
     width: 650px;
+    margin-left: 30px;
+    margin-top: 20px;
 }
 table th {
     /* border: 1px solid black; */
