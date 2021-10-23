@@ -16,7 +16,7 @@ h1 {
     margin-bottom: 100px;
 }
 
-img {
+.img {
     /* border: 1px solid black; */
     margin-top: 20px;
     margin-left: 50px;
@@ -50,7 +50,7 @@ img {
 .container {
     margin-top: 80px;
     margin-bottom: 100px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 1000px;
     height: 600px;
 }
@@ -61,7 +61,7 @@ img {
     justify-content: center;
 }
 
-button {
+#cor {
     margin-right: 10px;
     width: 480px;
     height: 40px;
@@ -70,14 +70,23 @@ button {
     background-color: white;
     color: black;
 }
-button:hover {
+#cor:hover {
     background-color: #3182f6;
     color: white;
 }
 
-.container-body span {
-    color: lightslategray;
-    margin-top: 20px;
+#indi {
+    margin-right: 10px;
+    width: 480px;
+    height: 40px;
+    border-width: 1px;
+    /* border: none; */
+    background-color: white;
+    color: black;
+}
+#indi:hover {
+    background-color: #3182f6;
+    color: white;
 }
 
 /* .App-logo {

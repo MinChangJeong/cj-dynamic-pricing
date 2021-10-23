@@ -51,10 +51,10 @@ function App() {
     <div className="App"> 
       <h1>e-풀필먼트 배송비 계산기</h1>
       <div>
-        <img src= {step1} alt="" />
-        <img src= {step2} alt="" />
-        <img src= {step3} alt="" />
-        <img src= {step4} alt="" />
+        <img className="img" src= {step1} alt="" />
+        <img className="img" src= {step2} alt="" />
+        <img className="img" src= {step3} alt="" />
+        <img className="img" src= {step4} alt="" />
       </div>
       {/* <div className="body">
         <div>
@@ -88,12 +88,12 @@ function App() {
           {
             btnCor ? (
               <div>
-                <span style={{ borderTop:"2opx"}}>입고비와 보관비를 확인할 수 있습니다.</span>
+                {/* <span style={{ borderTop:"2opx"}}>입고비와 보관비를 확인할 수 있습니다.</span> */}
                 <ComputeCor />
               </div>
             ) : btnIndi ?(
               <div>
-                <span style={{ borderTop:"2opx"}}>배송방법을 선택 할 수 있습니다.</span>
+                {/* <span style={{ color:"lightslategray", borderTop:"2opx"}}>배송방법을 선택 할 수 있습니다.</span> */}
                 <ComputeIndi />
               </div>
             ) : (
@@ -101,6 +101,7 @@ function App() {
             )
           }
         </div>
+        
       </div>
     
     </div>
