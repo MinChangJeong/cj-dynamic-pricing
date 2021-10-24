@@ -49,15 +49,12 @@ function ComputeCor() {
     <div className="ComputeCor">
       <div className="container">
           <div className="sub">
-            <span className="title">받으시는 분 배송 권역</span>
+            <span className="title">보내시는 분 배송 권역</span>
             <input type="text" placeholder=""/>
           </div>
           <div className="sub">
-            <span className="title">상품 금액</span>
+            <span className="title">받으시는 분 배송 권역</span>
             <input type="text" placeholder=""/>
-            <img className="icon" src={icon} onClick={
-              () => setCostInfo(!costInfo)
-            }/>
           </div>
           <div className="sub">
             <span className="title">상품 옵션</span>
@@ -68,7 +65,7 @@ function ComputeCor() {
                 setBExpress(false)
                 ChangeColorBtn1()
               }
-            }>당일배송</button>
+            }>상온</button>
             <button id="btn2" onClick={
               () => {
                 setNExpress(false)
@@ -76,7 +73,7 @@ function ComputeCor() {
                 setBExpress(false)
                 ChangeColorBtn2()
               }
-            }>새벽배송</button>
+            }>냉장, 냉동</button>
             <button id="btn3" onClick= {
               () => {
                 setNExpress(false)
@@ -86,13 +83,17 @@ function ComputeCor() {
               }
             }>일반배송</button>
           </div>
+          <div className="sub">
+            <span className="title">월 출고량</span>
+            <input type="text" placeholder=""/>
+          </div>
           {
-              nExpress ? (
-                <span className="alert">수도권일 경우만 가능합니다.</span>
-              ) : fExpress ? (
-                <span className="alert">수도권일 경우만 가능합니다.</span>
-              ) : null
-            }
+            nExpress ? (
+              <span className="alert">수도권일 경우만 가능합니다.</span>
+            ) : fExpress ? (
+              <span className="alert">수도권일 경우만 가능합니다.</span>
+            ) : null
+          }
         </div>
         {
           costInfo ?  (
