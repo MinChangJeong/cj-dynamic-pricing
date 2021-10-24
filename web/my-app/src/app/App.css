@@ -1,5 +1,9 @@
 body {
     background-color: #f9fafb;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 .App {
     margin-top: 100px;
@@ -9,27 +13,28 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.body-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.img-container {
+    display: flex;
+    justify-content: space-between;
+}
+
 h1 {
     font-size: 35pt;
-    font-family: 'Times New Roman', Times, serif;
     color: black;
     margin-bottom: 100px;
 }
 
 .img {
     /* border: 1px solid black; */
-    margin-top: 20px;
-    margin-left: 50px;
-    margin-right: 50px;
     width: 200px;
     height: 200px;
-}
-
-.body {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
 }
 
 .body div {
@@ -42,51 +47,97 @@ h1 {
     margin-right: 20px;
 }
 
-.body div span {
+/* .body div span {
     margin-top: 20px;
     margin-left: 20px;
-}
+} */
 
-.container {
+.Container {
     margin-top: 80px;
-    /* margin-bottom: 100px; */
-    /* border: 1px solid black; */
-    width: 1000px;
-    height: 500px;
 }
 
 .container-header {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 #cor {
-    margin-right: 10px;
-    width: 480px;
+    width: 500px;
     height: 40px;
+    border-color: #dbdbdb;
     border-width: 1px;
-    /* border: none; */
     background-color: white;
     color: black;
+    margin: 0;
+    font-weight: bold;
 }
 #cor:hover {
     background-color: #3182f6;
     color: white;
+    font-weight: bold;
 }
 
 #indi {
-    margin-right: 10px;
-    width: 480px;
+    width: 500px;
     height: 40px;
+    border-color: #dbdbdb;
     border-width: 1px;
-    /* border: none; */
     background-color: white;
     color: black;
+    margin: 0;
+    font-weight: bold;
 }
 #indi:hover {
     background-color: #3182f6;
     color: white;
+    font-weight: bold;
+}
+
+.cor-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mention {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: large;
+    color: #707070;
+}
+
+.price-title {
+    background-color: #3182f6;
+    color: #ffffff;
+    margin: 10px;
+    margin-top: 200px;
+    padding: 10px;
+    text-align: center;
+}
+
+.price-container {
+    background-color: #ffffff;
+    margin: 10px;
+    padding: 100px;
+}
+
+.price-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.space {
+    margin: 30px;
+}
+
+.all-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: large;
+    font-weight: bolder;
+    margin: 30px;
 }
 
 /* .App-logo {

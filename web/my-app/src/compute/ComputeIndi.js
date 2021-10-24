@@ -91,9 +91,9 @@ function ComputeIndi() {
           </div>
           {
             nExpress ? (
-              <span className="alert">수도권일 경우만 가능합니다.</span>
+              <span className="alert">받으시는 분 주소가 수도권일 경우만 가능합니다.</span>
             ) : fExpress ? (
-              <span className="alert">수도권일 경우만 가능합니다.</span>
+              <span className="alert">받으시는 분 주소가 수도권일 경우만 가능합니다.</span>
             ) : null
           }
           <Table />
