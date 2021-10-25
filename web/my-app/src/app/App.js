@@ -4,8 +4,6 @@ import './App.css';
 import ComputeCor from '../compute/ComputeCor.js';
 import ComputeIndi from '../compute/ComputeIndi.js';
 
-// import ComputeMain from  '../compute/ComputeMain.js';
-
 import React , {useState, useEffect} from 'react';
 import axios from 'axios'
 
@@ -57,16 +55,6 @@ function App() {
           <img className="img" src= {step3} alt="" />
           <img className="img" src= {step4} alt="" />
         </div>
-        {/* <div className="body">
-          <div>
-            <button onClick={() => setBtnCor(true)}>기업</button>
-            <span> 입고비와 보관비를 확인할 수 있습니다.</span>
-          </div>
-          <div>
-            <button onClick={() => setBtnIndi(true)}>개인</button>
-            <span> 배송 방법을 선택할 수 있습니다.</span>
-          </div>
-        </div> */}
         <div className="Container">
           <div className="container-header">
             
@@ -85,7 +73,7 @@ function App() {
             </button>
           
           </div>
-          <div>
+          {/* <div>
             {
               btnCor ? (
                 <div class="cor-container">
@@ -101,41 +89,61 @@ function App() {
                 null
               )
             }
+          </div> */}
+        
+        </div>
+        <div className="container-body">
+          {
+            btnCor ? (
+              <div>
+                {/* <span >입고비와 보관비를 확인할 수 있습니다.</span> */}
+                <ComputeCor />
+              </div>
+            ) : btnIndi ?(
+              <div>
+                {/* <span >배송방법을 선택 할 수 있습니다.</span> */}
+                <ComputeIndi />
+              </div>
+            ) : (
+              null
+            )
+          }
           </div>
-          
-          <div class="price-title">최종 배송비 확인</div>
-          <div class="price-container">
-            <div class="price-list">
-              <div class="detail1">
-                  <div class="space">주문시간</div>
-                  <div class="space">주고 받는 거리</div>
-                  <div class="space">상품 금액</div>
-                  <div class="space">배송 옵션</div>
-                  <div class="space">할인 혜택</div>
-              </div>
-              <div class="detail2">
-                  <div class="space">오후 5시 17분</div>
-                  <div class="space">100km 내</div>
-                  <div class="space">20,000원</div>
-                  <div class="space">20,000원</div>
-                  <div class="space">SILVER</div>
-              </div>
-              <div class="detail3">
-                  <div class="space">+?00원</div>
-                  <div class="space">+?00원</div>
-                  <div class="space">+?00원</div>
-                  <div class="space">+?00원</div>
-                  <div class="space">-?00원</div>
-              </div>
-            </div>
-            <hr />
-            <div class="all-price">
-              <div>총 합계</div>
-              <div>???,???원</div>
-            </div>
+      </div>
+      
+      <div className="price-title">최종 배송비 확인</div>
+      <div className="price-container">
+        <div className="price-list">
+          <div className="detail1">
+              <div className="space">주문시간</div>
+              <div className="space">주고 받는 거리</div>
+              <div className="space">상품 금액</div>
+              <div className="space">배송 옵션</div>
+              <div className="space">할인 혜택</div>
+          </div>
+          <div class="detail2">
+              <div className="space">오후 5시 17분</div>
+              <div className="space">100km 내</div>
+              <div className="space">20,000원</div>
+              <div className="space">20,000원</div>
+              <div className="space">SILVER</div>
+          </div>
+          <div className="detail3">
+              <div className="space">+?00원</div>
+              <div className="space">+?00원</div>
+              <div className="space">+?00원</div>
+              <div className="space">+?00원</div>
+              <div className="space">-?00원</div>
           </div>
         </div>
+        <hr />
+        <div className="all-price">
+          <div>총 합계</div>
+          <div>???,???원</div>
+        </div>
       </div>
+        
+
     </div>
   );
 }

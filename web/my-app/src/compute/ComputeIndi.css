@@ -50,6 +50,8 @@ button:hover {
 }
 
 .cost-info {
+    border: 1px solid black;
+    width: 450px;
     border: 1px solid #dbdbdb;
     width: 500px;
     height: 150px;
@@ -59,6 +61,10 @@ button:hover {
     position: relative;
     left: 700px;
     bottom: 500px;
+    background-color: #f9fafb;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+
     background-color: white;
 }
 
@@ -69,9 +75,10 @@ button:hover {
 }
 
 .alert {
-    margin-left: 280px;
     font-weight: bold;
     font-size: 12px;
     text-align: center;
     color: #707070;
+    margin-bottom: 10px;
+    margin-right: 80px;
 }

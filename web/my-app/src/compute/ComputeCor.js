@@ -12,8 +12,8 @@ function ComputeCor() {
     document.getElementById("btn2").style.backgroundColor="white"
     document.getElementById("btn2").style.color="black"
 
-    document.getElementById("btn3").style.backgroundColor="white"
-    document.getElementById("btn3").style.color="black"
+    // document.getElementById("btn3").style.backgroundColor="white"
+    // document.getElementById("btn3").style.color="black"
   }
 
   const ChangeColorBtn2 = () => {
@@ -23,22 +23,22 @@ function ComputeCor() {
     document.getElementById("btn1").style.backgroundColor="white"
     document.getElementById("btn1").style.color="black"
 
-    document.getElementById("btn3").style.backgroundColor="white"
-    document.getElementById("btn3").style.color="black"
+    // document.getElementById("btn3").style.backgroundColor="white"
+    // document.getElementById("btn3").style.color="black"
 
   }
 
-  const ChangeColorBtn3 = () => {
-    document.getElementById("btn3").style.backgroundColor="#3182f6"
-    document.getElementById("btn3").style.color="white"
+  // const ChangeColorBtn3 = () => {
+  //   document.getElementById("btn3").style.backgroundColor="#3182f6"
+  //   document.getElementById("btn3").style.color="white"
 
-    document.getElementById("btn1").style.backgroundColor="white"
-    document.getElementById("btn1").style.color="black"
+  //   document.getElementById("btn1").style.backgroundColor="white"
+  //   document.getElementById("btn1").style.color="black"
 
-    document.getElementById("btn2").style.backgroundColor="white"
-    document.getElementById("btn2").style.color="black"
+  //   document.getElementById("btn2").style.backgroundColor="white"
+  //   document.getElementById("btn2").style.color="black"
 
-  }
+  // }
 
   const [nExpress, setNExpress] = useState(false);
   const [fExpress, setFExpress] = useState(false);
@@ -62,7 +62,7 @@ function ComputeCor() {
               () => {
                 setNExpress(true)
                 setFExpress(false)
-                setBExpress(false)
+                // setBExpress(false)
                 ChangeColorBtn1()
               }
             }>상온</button>
@@ -70,22 +70,18 @@ function ComputeCor() {
               () => {
                 setNExpress(false)
                 setFExpress(true)
-                setBExpress(false)
+                // setBExpress(false)
                 ChangeColorBtn2()
               }
             }>냉장, 냉동</button>
-            <button id="btn3" onClick= {
+            {/* <button id="btn3" onClick= {
               () => {
                 setNExpress(false)
                 setFExpress(false)
                 setBExpress(true)
                 ChangeColorBtn3()
               }
-            }>일반배송</button>
-          </div>
-          <div className="sub">
-            <span className="title">월 출고량</span>
-            <input type="text" placeholder=""/>
+            }>일반배송</button> */}
           </div>
           {
             nExpress ? (
@@ -94,6 +90,11 @@ function ComputeCor() {
               <span className="alert">수도권일 경우만 가능합니다.</span>
             ) : null
           }
+          <div className="sub">
+            <span className="title">월 출고량</span>
+            <input type="text" placeholder=""/>
+          </div>
+          
         </div>
         {
           costInfo ?  (
