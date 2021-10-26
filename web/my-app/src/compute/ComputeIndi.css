@@ -1,6 +1,8 @@
 .container {
     display: flex;
     flex-direction: column;
+    background-color: white;
+    padding: 50px;
 }
 
 .sub {
@@ -23,13 +25,14 @@ input {
     height: 30px;
     border-width: 2px;
     border-radius: 5px 5px 5px 5px;
+    border: 1px solid #dbdbdb;
 }
 
 button {
     margin-left: 30px;
     width: 100px;
     height: 40px;
-    border: 1px solid black;
+    border: 1px solid #dbdbdb;
     background-color: white;
     color: black;
 }
@@ -48,6 +51,8 @@ button:hover {
 
 .cost-info {
     border: 1px solid black;
+    width: 450px;
+    border: 1px solid #dbdbdb;
     width: 500px;
     height: 150px;
     margin-left: 20px;
@@ -57,10 +62,23 @@ button:hover {
     left: 700px;
     bottom: 500px;
     background-color: #f9fafb;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+
+    background-color: white;
 }
 
 .cost-info span {
     margin-left: 10px;
     font-weight: bold;
     font-size: 12px;
+}
+
+.alert {
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    color: #707070;
+    margin-bottom: 10px;
+    margin-right: 80px;
 }
