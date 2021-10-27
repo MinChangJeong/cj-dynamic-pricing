@@ -29,33 +29,34 @@ for i in range(1, (PREDICT_TIME + 1)):
     rd.set(i, 0)
 
 ### time, result update per hour
-while True:
 
-    ## time update
-    time.sleep(3600)
-    print("Time Update")
+# while True:
 
-    new_time_set = {PREDICT_TIME : 0}
-    for index in range(1, PREDICT_TIME + 1):
-        if index == 1:
-            time_index1 = rd.get(index).decode("utf-8")
-        else:
-            new_time_set[index-1] = rd.get(index).decode("utf-8")
+#     ## time update
+#     time.sleep(10)
+#     print("Time Update")
+
+#     new_time_set = {PREDICT_TIME : 0}
+#     for index in range(1, PREDICT_TIME + 1):
+#         if index == 1:
+#             time_index1 = rd.get(index).decode("utf-8")
+#         else:
+#             new_time_set[index-1] = rd.get(index).decode("utf-8")
 
 
-    for key, values in new_time_set.items():
-        rd.set(key, int(values)+1)
+#     for key, values in new_time_set.items():
+#         rd.set(key, int(values)+1)
     
-    ## predict data update
-    update_data = predict_result[0] + SCALER.transform([[time_index1]])
-    test_predict = np.append(initial_x, update_data)[1:]
+#     ## predict data update
+#     update_data = predict_result[0] + SCALER.transform([[time_index1]])
+#     test_predict = np.append(initial_x, update_data)[1:]
 
-    ## reset data, update result
-    initial_x = test_predict
-    predict_result = model_run(PREDICT_MODEL, initial_x, PREDICT_TIME)
+#     ## reset data, update result
+#     initial_x = test_predict
+#     predict_result = model_run(PREDICT_MODEL, initial_x, PREDICT_TIME)
 
-    with open("./result/predict_result.pickle", "wb") as r:
-        pickle.dump(predict_result, r, pickle.HIGHEST_PROTOCOL)
+#     with open("./result/predict_result.pickle", "wb") as r:
+#         pickle.dump(predict_result, r, pickle.HIGHEST_PROTOCOL)
 
 
     
