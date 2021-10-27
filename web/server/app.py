@@ -6,13 +6,20 @@ import pickle
 import numpy as np
 import redis 
 from datetime import datetime, timedelta
-
+from threading import Thread
+import time
+from time_update_module import time_update_thread
 
 rd = redis.StrictRedis(host="localhost", port= 6379, db=0)
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 CORS(app)  # comment this on deployment
 api = Api(app)
+
+thread = Thread(target=time_update_thread)
+thread.daemon = True
+thread.start()
+
 
 with open("./model/set_fee_mode.pickle", 'rb') as p:
     TRAIN_MODEL = pickle.load(p)
@@ -41,9 +48,12 @@ def calc():
         "txt" : "okay"
     }
 
-
 # api.add_resource(RUN_MODEL, '/calc')
+@app.route("/")
+def index():
+    
+    return {
+        "task" : "Thread"
+    }
 
-if __name__ == "__main__":
-    app.run('127.0.0.1', port=5000, dubug=True)
 
