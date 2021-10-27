@@ -94,6 +94,22 @@ function ComputeCor() {
             <span className="title">월 출고량</span>
             <input type="text" placeholder=""/>
           </div>
+          <div className="sub">
+            <span className="title">카테고리</span>
+            <select className="selectbar">
+              <option value="선택">선택</option>
+              <option value="가구/인테리어">가구/인테리어</option>
+              <option value="도서">도서</option>
+              <option value="디지털/가전">디지털/가전</option>
+              <option value="생활/건강">생활/건강</option>
+              <option value="스포츠/레저">스포츠/레저</option>
+              <option value="식품">식품</option>
+              <option value="여가/생활편의">여가/생활편의</option>
+              <option value="출산/육아">출산/육아</option>
+              <option value="패션의류/잡화">패션의류/잡화</option>
+              <option value="화장품/미용">화장품/미용</option>
+            </select>
+          </div>
           
         </div>
         {

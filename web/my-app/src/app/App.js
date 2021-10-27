@@ -96,12 +96,12 @@ function App() {
           {
             btnCor ? (
               <div>
-                {/* <span >입고비와 보관비를 확인할 수 있습니다.</span> */}
+                <div className="mention">입고비와 보관비를 확인할 수 있습니다.</div>
                 <ComputeCor />
               </div>
             ) : btnIndi ?(
               <div>
-                {/* <span >배송방법을 선택 할 수 있습니다.</span> */}
+                <div className="mention">배송방법을 선택 할 수 있습니다.</div>
                 <ComputeIndi />
               </div>
             ) : (
