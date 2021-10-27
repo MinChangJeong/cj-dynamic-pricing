@@ -57,37 +57,39 @@ function ComputeIndi() {
           <div className="sub">
             <span className="title">상품 금액</span>
             <input type="text" placeholder=""/>
-            <img className="icon" src={icon} onClick={
+            {/* <img className="icon" src={icon} onClick={
               () => setCostInfo(!costInfo)
-            }/>
+            }/> */}
             
           </div>
           <div className="sub">
             <span className="title">상품 옵션</span>
-            <button id="btn1" onClick={
-              () => {
-                setNExpress(true)
-                setFExpress(false)
-                setBExpress(false)
-                ChangeColorBtn1()
-              }
-            }>당일배송</button>
-            <button id="btn2" onClick={
-              () => {
-                setNExpress(false)
-                setFExpress(true)
-                setBExpress(false)
-                ChangeColorBtn2()
-              }
-            }>새벽배송</button>
-            <button id="btn3" onClick= {
-              () => {
-                setNExpress(false)
-                setFExpress(false)
-                setBExpress(true)
-                ChangeColorBtn3()
-              }
-            }>일반배송</button>
+            <div>
+              <button className="button2" id="btn1" onClick={
+                () => {
+                  setNExpress(true)
+                  setFExpress(false)
+                  setBExpress(false)
+                  ChangeColorBtn1()
+                }
+              }>당일배송</button>
+              <button className="button2" id="btn2" onClick={
+                () => {
+                  setNExpress(false)
+                  setFExpress(true)
+                  setBExpress(false)
+                  ChangeColorBtn2()
+                }
+              }>새벽배송</button>
+              <button className="button2" id="btn3" onClick= {
+                () => {
+                  setNExpress(false)
+                  setFExpress(false)
+                  setBExpress(true)
+                  ChangeColorBtn3()
+                }
+              }>일반배송</button>
+            </div>
           </div>
           {
             nExpress ? (

@@ -1,24 +1,22 @@
 table {
-    border: 1px solid black;
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
-    width: 650px;
-    margin-left: 30px;
-    margin-top: 20px;
+    text-align: center;
+    border: 2px solid white;
+    width: 500px;
+    margin-top: 10px;
+    margin-left: 300px;
+    border-collapse: collapse;
 }
-table th {
-    /* border: 1px solid black; */
-    margin-left: 10px;
+
+table th, td {
+    font-weight: normal;
+    font-size: 14px;
+    border: 1px solid #dbdbdb;
+    padding: 8px;
 }
-table tr {
-    border: 1px solid black;
-}
-table td {
-    border: 1px solid black;
-}
+
 table td:hover {
-    background-color: #e9eaeb;
+    background-color: #3182f6;
+    color: white;
 }
 .time:hover {
     background-color: white;
