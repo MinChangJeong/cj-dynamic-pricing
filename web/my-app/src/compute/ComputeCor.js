@@ -1,7 +1,12 @@
 import "./ComputeCor.css"
 import React, {useState, useEffect} from 'react';
 import icon from '../img/icon1.png'
+
+import SearchBar from "../search/SearchBar";
 import locationData from "../data/location.json";
+import TrieSearch from 'trie-search';
+
+import axios from 'axios'
 
 const ChangeColorBtn1 = () => {
   document.getElementById("btn1").style.backgroundColor="#3182f6"
@@ -27,68 +32,154 @@ function ComputeCor() {
 
   const [nExpress, setNExpress] = useState(false);
   const [fExpress, setFExpress] = useState(false);
-  
-  // value state
+
+  // 보내는 사람 권역----------------------------------------------
   const [sendLocation, setSendLocation] = useState({
-    name : "서울특별시 강남구",
-    latitude : null,
-    longitude : null,
+    value : "",
+    validateStatus : false
   });
+  const [sendResult, setSendResult] = useState({
+    value : [],
+    validateStatus : false
+  });
+
+  const SearchSendLocation =  (data) => {
+    const trie = new TrieSearch();
+  
+    trie.addFromObject(locationData);
+
+    var results = trie.search(data)
+
+    setSendResult({
+      ...sendLocation,
+      value : results,
+      validateStatus : true,
+    });
+  }
+  
+  const updateSendLocation = (data) => {
+    setSendLocation(data);
+  }
+
+  // ----------------------------------------------
+
+  // 받는 사람 권역----------------------------------------------
   const [getLocation, setGetLocation] = useState({
-    name : "광주광역시 남구",
-    latitude : null,
-    longitude : null,
+    value : "",
+    validateStatus : false
   });
-  
-  
-  useEffect(()=> {
-    if (locationData[sendLocation.name] != null) {
-      var result = locationData[sendLocation.name];
+  const [getResult, setGetResult] = useState({
+    value : [],
+    validateStatus : false
+  });
 
-      setSendLocation({
-        ...sendLocation,
-        latitude : result[0],
-        longitude : result[1],
-      })
+  const SearchGetLocation =  (data) => {
+    const trie = new TrieSearch();
+  
+    trie.addFromObject(locationData);
+
+    var results = trie.search(data)
+
+    setGetResult({
+      ...getResult,
+      value : results,
+      validateStatus : true
+    });
+  }
+  
+  const updateGetLocation = (data) => {
+    setGetLocation(data);
+  }
+
+  // ----------------------------------------------
+  
+  // 입력값 전송(기업)---------------------------------------------
+  
+  // 보내는 사람 권역주소, 받는 사람 권역 주소, 상품옵션, 월출고량, 카테고리
+  // sendLocation, getLocation, [nExpress || fExpress]중 true값, 월 출고량
+  const [quantity, setQuantity] = useState({
+    value : null,
+    validateStatus : false
+  });
+  const [category, setCategory] = useState({
+    value : null,
+    validateStatus : false
+  });
+
+  const handleSubmit = () => {
+    const inputRequest = {
+      sendLocation : sendLocation.value,
+      getLocation : getLocation.value,
+      option : [nExpress, fExpress],
+      quantity : quantity.value,
+      category : category.value
     }
-    console.log(sendLocation)
-  }, [sendLocation.name])
-  
+    
+    console.log(inputRequest)
 
-  // jsx
+    // axios.post('http://localhost:5000/flask', inputRequest)
+    //   .then(response => {
+    //     // response 받고 이후에 보여주는거 하면됨
+    //     // summmary 에 결과값 전달 후 display
+    //   })
+    //   .catch(error => {
+    //     console.log(error)
+    //   })
+  
+  }
+
+
+  //----------------------------------------------
 
   return (
     <div className="ComputeCor">
       <div className="container">
           <div className="sub">
             <span className="title">보내시는 분 배송 권역</span>
-            <input 
-              className="search-bar"
-              type="text" 
-              placeholder="서울특별시 강남구"
-              onChange={(e) => {
-                setSendLocation({
-                  ...sendLocation,
-                  name : e.target.value
-                });
-              }}
-            />
+            <input
+            name="search-bar" 
+            type="text"
+            placeholder="Search..."
+            onChange={(e) => {
+              setSendLocation({
+                ...sendLocation,
+                value : e.target.value,
+                validateStatus : true,
+              });
+              SearchSendLocation(e.target.value)
+            }}
+          />
           </div>
+          {
+            sendResult.length != 0 ? (
+              <SearchBar result={sendResult.value} updateSendLocation={updateSendLocation}/>    
+            ) : (
+              null
+            )
+          }
           <div className="sub">
             <span className="title">받으시는 분 배송 권역</span>
-            <input 
-              className="search-bar"
-              type="text" 
-              placeholder="광주광역시 남구"
-              onChange={(e) => {
-                setGetLocation({
-                  ...getLocation,
-                  name : e.target.value
-                });
-              }}
-            
-            />
+            <input
+            name="search-bar" 
+            type="text"
+            placeholder="Search..."
+            onChange={(e) => {
+              setGetLocation({
+                ...getLocation, 
+                value : e.target.value,
+                validateStatus : true
+              });
+              SearchGetLocation(e.target.value)
+            }}
+          />
           </div>
+          {
+            getResult.length != 0 ? (
+              <SearchBar result={getResult.value} updateGetLocation={updateGetLocation}/>    
+            ) : (
+              null
+            )
+          }
           <div className="sub">
             <span className="title">상품 옵션</span>
             <div>
@@ -117,11 +208,25 @@ function ComputeCor() {
           }
           <div className="sub">
             <span className="title">월 출고량</span>
-            <input type="text" placeholder=""/>
+            <input 
+              type="text" 
+              placeholder=""
+              onChange={(e) => setQuantity({
+                ...quantity, 
+                value : e.target.value, 
+                validateStatus : true
+              })}
+              />
           </div>
           <div className="sub">
             <span className="title">카테고리</span>
-            <select className="selectbar">
+            <select 
+              className="selectbar" 
+              onChange={(e) => setCategory({
+                ...category, 
+                value : e.target.value, 
+                validateStatus : true
+              })}>
               <option value="선택">선택</option>
               <option value="가구/인테리어">가구/인테리어</option>
               <option value="도서">도서</option>
@@ -151,7 +256,14 @@ function ComputeCor() {
             </div>
           ) : null
         }
+      <button 
+        className="price-title" 
+        onClick={handleSubmit}
+      >
+        최종 배송비 확인
+      </button>
     </div>
+
   );
 }
 

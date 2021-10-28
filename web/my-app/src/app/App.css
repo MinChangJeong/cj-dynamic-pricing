@@ -47,11 +47,6 @@ h1 {
     margin-right: 20px;
 }
 
-/* .body div span {
-    margin-top: 20px;
-    margin-left: 20px;
-} */
-
 .Container {
     margin-top: 80px;
 }
@@ -107,43 +102,6 @@ h1 {
     font-size: large;
     color: #707070;
     text-align: center;
-}
-
-.price-title {
-    background-color: #3182f6;
-    color: #ffffff;
-    margin-top: 100px;
-    margin-bottom: 100px;
-    padding-top: 15px;
-    text-align: center;
-    width: 600px;
-    height: 35px;
-    font-size: large;
-}
-
-.price-container {
-    background-color: #ffffff;
-    margin: 10px;
-    padding: 100px;
-}
-
-.price-list {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.space {
-    margin: 30px;
-}
-
-.all-price {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: large;
-    font-weight: bolder;
-    margin: 30px;
 }
 
 /* .App-logo {
