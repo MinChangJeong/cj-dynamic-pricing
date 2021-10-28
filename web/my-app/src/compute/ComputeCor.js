@@ -31,10 +31,11 @@ function ComputeCor() {
   // CSS state
   const [costInfo, setCostInfo] = useState(false);
 
-  const [nExpress, setNExpress] = useState(false);
-  const [fExpress, setFExpress] = useState(false);
+  // const [nExpress, setNExpress] = useState(false);
+  // const [fExpress, setFExpress] = useState(false);
 
-  const [btnSum, setBtnSum] = useState('disabled');
+  const [check, setCheck] = useState('disabled');
+  const [btnSum, setBtnSum] = useState(false);
 
   // 보내는 사람 권역----------------------------------------------
   const [sendLocation, setSendLocation] = useState({
@@ -112,12 +113,14 @@ function ComputeCor() {
   });
 
   const handleSubmit = () => {
+    setBtnSum(true)
+
     const inputRequest = {
       time : new Date().getHours(),
       btnType : "btnCor",
       sendLocation : sendLocation.value,
       getLocation : getLocation.value,
-      option : [nExpress, fExpress],
+      // option : [nExpress, fExpress],
       quantity : quantity.value,
       category : category.value
     }
@@ -144,7 +147,7 @@ function ComputeCor() {
         quantity.validateStatus &
         category.validateStatus
       ) {
-      setBtnSum(null);
+      setCheck(null)
     }
 
   }, [sendLocation.validateStatus, getLocation.validateStatus, quantity.validateStatus, category.validateStatus])
@@ -201,8 +204,8 @@ function ComputeCor() {
             )
           }
           <div className="sub">
-            <span className="title">상품 옵션</span>
-            <div>
+            {/* <span className="title">상품 옵션</span> */}
+            {/* <div>
               <button id="btn1" onClick={
                 () => {
                   setNExpress(true)
@@ -217,15 +220,15 @@ function ComputeCor() {
                   ChangeColorBtn2()
                 }
               }>냉장, 냉동</button>
-            </div>
+            </div> */}
           </div>
-          {
+          {/* {
             nExpress ? (
               <span className="alert">수도권일 경우만 가능합니다.</span>
             ) : fExpress ? (
               <span className="alert">수도권일 경우만 가능합니다.</span>
             ) : null
-          }
+          } */}
           <div className="sub">
             <span className="title">월 출고량</span>
             <input 
@@ -279,12 +282,12 @@ function ComputeCor() {
       <button 
         className="price-title" 
         onClick={handleSubmit}
-        disabled={btnSum}
+        disabled={check}
       >
         최종 배송비 확인
       </button>
       {
-        btnSum == null ? (
+        btnSum ? (
           <Summary result={resultInfo} type="corporate"/>
         ) : null
       }
