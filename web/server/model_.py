@@ -12,9 +12,14 @@ np.seterr(all="ignore")
 with open("./data/location.json", "rb") as l:
     LOCATION = json.load(l)
 
-with open("./data/category.json", "r") as l:
-    CATEGORY = json.load(l)
+with open("./data/category.json", "r") as c:
+    CATEGORY = json.load(c)
 
+with open("./model/set_fee_mode.pickle", "rb") as m:
+    MODEL_FEE = pickle.load(m)
+
+with open("./data/category_count.json", "r") as cc:
+    CATEGORY_COUNT = json.load(cc)
 
 def model_preprocessing(df, scaler):
     if str(type(df)) == "<class 'pandas.core.frame.DataFrame'>":
@@ -50,24 +55,39 @@ def inverse_trans():
 
 
 def set_fee(req_data_dict):
-# {"sendLocation":"서울특별시 종로구","getLocation":"광주광역시 서구","option":[true,false],"quantity":"11000","category":"가구/인테리어"}
-# [35.1461, 126.9231] N 10000
     if req_data_dict["btnType"] == "btnCor":
 
         time = int(req_data_dict["time"])
         send_location = LOCATION[req_data_dict["sendLocation"]]
         get_location = LOCATION[req_data_dict["getLocation"]]
-        option = "F" if req_data_dict["option"][0] else "N" ## 상온, 냉장/냉동
         quantity = int(req_data_dict["quantity"])
-        category = CATEGORY[req_data_dict["category"]]
+        # category_count = CATEGORY_COUNT(CATEGORY[req_data_dict["category"]]) ## code_count(codeID)
+
+        storage = "I" if req_data_dict["category"] == "식품" else "F" 
 
         sender = (send_location[0], send_location[1])
         receiver = (get_location[0], get_location[1])
 
         distance = haversine(sender, receiver)
 
+        print(time, send_location, get_location, quantity, distance, storage)
 
-        print(send_location, get_location, option, quantity, category)
+        initial_fee = 2100
+        set_option_fee = np.array([distance, time, quantity]).reshape(1, -1)
+        fee_ = MODEL_FEE.predict(set_option_fee)
+
+        option_weight = 0
+        if storage == "I":
+            option_weight = option_weight + 300
+
+
+        distance_weight = (fee_ - initial_fee ) * MODEL_FEE.feature_importances_[0]
+        time_weight = (fee_ - initial_fee) * MODEL_FEE.feature_importances_[1]
+        category_weight = (fee_ - initial_fee) * MODEL_FEE.feature_importances_[2]
+
+        last_fee_ = fee_[0] + option_weight
+
+        return int(distance_weight), int(time_weight), int(category_weight), int(option_weight), int(last_fee_)
 
     elif req_data_dict["btnType"] == "btnIndi":
         send_location = LOCATION[req_data_dict["location"]]
@@ -81,8 +101,10 @@ def set_fee(req_data_dict):
          
         print(send_location, option, price)
 
-    sender = ()
-    receiver = ()
+    # sender = ()
+    # receiver = ()
 
-    distance = haversine(sender, receiver)
+    # distance = haversine(sender, receiver)
+
+
     return "yes"
