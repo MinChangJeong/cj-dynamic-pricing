@@ -31,8 +31,8 @@ function ComputeCor() {
   // CSS state
   const [costInfo, setCostInfo] = useState(false);
 
-  // const [nExpress, setNExpress] = useState(false);
-  // const [fExpress, setFExpress] = useState(false);
+  const [nExpress, setNExpress] = useState(false);
+  const [fExpress, setFExpress] = useState(false);
 
   const [check, setCheck] = useState('disabled');
   const [btnSum, setBtnSum] = useState(false);
@@ -120,7 +120,7 @@ function ComputeCor() {
       btnType : "btnCor",
       sendLocation : sendLocation.value,
       getLocation : getLocation.value,
-      // option : [nExpress, fExpress],
+      option : [nExpress, fExpress],
       quantity : quantity.value,
       category : category.value
     }
@@ -204,8 +204,8 @@ function ComputeCor() {
             )
           }
           <div className="sub">
-            {/* <span className="title">상품 옵션</span> */}
-            {/* <div>
+            <span className="title">상품 옵션</span>
+            <div>
               <button id="btn1" onClick={
                 () => {
                   setNExpress(true)
@@ -220,15 +220,15 @@ function ComputeCor() {
                   ChangeColorBtn2()
                 }
               }>냉장, 냉동</button>
-            </div> */}
+            </div>
           </div>
-          {/* {
+          {
             nExpress ? (
               <span className="alert">수도권일 경우만 가능합니다.</span>
             ) : fExpress ? (
               <span className="alert">수도권일 경우만 가능합니다.</span>
             ) : null
-          } */}
+          }
           <div className="sub">
             <span className="title">월 출고량</span>
             <input 
