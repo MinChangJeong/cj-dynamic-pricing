@@ -1,14 +1,19 @@
 import React from 'react'
 import "./SearchBar.css"
-function SearchBar({keyword, postcode}) {
-    console.log(Object.values(postcode))
-    return (
-        <div className="SearchBar">
-            <div className="result">
-                <span>
-                {Object.values(postcode)[0]}
-                </span>
+function SearchBar({result, updateLocation}) {
+    const locationPreview = []
+
+    result.forEach((data) => {
+        locationPreview.push(
+            <div className="location-result">
+                {Object.values(data)[0]}
             </div>
+        )
+    })
+
+    return (
+        <div className="SearchBar" >
+            { locationPreview}
         </div>
     )
 }
