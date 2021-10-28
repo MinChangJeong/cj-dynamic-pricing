@@ -91,7 +91,7 @@ def set_fee(req_data_dict):
         time = req_data_dict["time"]
         receiver = LOCATION[req_data_dict["location"]]
 
-        price = req_data_dict["price"]
+        price = int(req_data_dict["price"])
         if req_data_dict["price"][0]:
             option = "N" ## 새벽
         elif req_data_dict["price"][1]:
@@ -101,23 +101,39 @@ def set_fee(req_data_dict):
          
         sender = (37.384, 127.314)
 
-        quantity = 0
+        quantity = 1
         distance = haversine(sender, receiver)
         set_option_fee = np.array([distance, time, quantity]).reshape(1, -1)
 
+        initial_fee = 2100
         fee_ = MODEL_FEE.predict(set_option_fee)
 
         option_weight = 0
         if option == "N":
-            option_weight = option_weight + 500
+            option_weight = 500
+            delivery = "새벽배송"
         elif option == "F": 
-            option_weight = option_weight + 300
+            option_weight =  300
+            delivery = "당일배송"
         else:
             option_weight = 0
-        
-        # if price
+            delivery = "일반배송" 
 
+        if (price >= 500000) and ( price < 1000000):
+            price_weight =  2000
+        elif (price >= 1000000) and ( price < 2000000):
+            price_weight =  4000
+        elif (price >= 2000000) and ( price < 3000000):
+            price_weight = 6000
+        else:
+            price_weight = 0
 
+        distance_weight = (fee_ - initial_fee ) * MODEL_FEE.feature_importances_[0]
+        time_weight = (fee_ - initial_fee) * MODEL_FEE.feature_importances_[1]
+        discount_weight = (fee_ - initial_fee) * MODEL_FEE.feature_importances_[2]
+
+        last_fee_ = fee_[0] + option_weight
+        return int(distance_weight), int(time_weight), int(discount_weight), int(option_weight), int(price_weight), int(distance), int(time), int(quantity), int(last_fee_), int(price), delivery
         print(receiver, option, price)
 
     # sender = ()
