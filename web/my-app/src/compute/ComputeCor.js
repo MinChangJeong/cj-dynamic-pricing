@@ -113,6 +113,8 @@ function ComputeCor() {
 
   const handleSubmit = () => {
     const inputRequest = {
+      time : new Date().getHours(),
+      btnType : "btnCor",
       sendLocation : sendLocation.value,
       getLocation : getLocation.value,
       option : [nExpress, fExpress],
@@ -120,16 +122,19 @@ function ComputeCor() {
       category : category.value
     }
     
-    console.log(inputRequest)
-
-    // axios.post('http://localhost:5000/flask', inputRequest)
-    //   .then(response => {
-    //     // response 받고 이후에 보여주는거 하면됨
-    //     // summmary 에 결과값 전달 후 display
-    //   })
-    //   .catch(error => {
-    //     console.log(error)
-    //   })
+    axios.post('http://localhost:5000/calc/', inputRequest)
+      .then(response => {
+        console.log(inputRequest)
+        console.log("yes")
+        console.log(response)
+        // response 받고 이후에 보여주는거 하면됨
+        // summmary 에 결과값 전달 후 display
+      })
+      .catch(error => {
+        // console.log(inputRequest)
+        console.log(error)
+        console.log("error")
+      })
   
   }
   

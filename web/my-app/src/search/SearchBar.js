@@ -13,7 +13,7 @@ function SearchBar({result, updateLocation}) {
 
     return (
         <div className="SearchBar" >
-            { locationPreview}
+            { locationPreview }
         </div>
     )
 }
