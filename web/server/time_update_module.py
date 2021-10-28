@@ -26,11 +26,11 @@ def time_update_thread():
 
     # initial model
     initial_x = model_preprocessing(INITIAL_DATA, SCALER)
-    predict_result = model_run_and_forecast(
+    predict_result, s_data = model_run_and_forecast(
         PREDICT_MODEL, initial_x, PREDICT_TIME)
 
     with open("./result/predict_result.pickle", "wb") as r:
-        pickle.dump(predict_result, r, pickle.HIGHEST_PROTOCOL)
+        pickle.dump([predict_result, s_data], r, pickle.HIGHEST_PROTOCOL)
 
     # initial redis
     for i in range(1, (PREDICT_TIME + 1)):
@@ -59,11 +59,10 @@ def time_update_thread():
 
         # reset data, update result
         initial_x = test_predict
-        predict_result = model_run_and_forecast(
+        predict_result, s_data = model_run_and_forecast(
             PREDICT_MODEL, initial_x, PREDICT_TIME)
 
         with open("./result/predict_result.pickle", "wb") as r:
-            pickle.dump(predict_result, r, pickle.HIGHEST_PROTOCOL)
+            pickle.dump([predict_result, s_data], r, pickle.HIGHEST_PROTOCOL)
 
 
-time_update_thread()
