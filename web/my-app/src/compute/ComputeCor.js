@@ -108,6 +108,8 @@ function ComputeCor() {
 
   const handleSubmit = () => {
     const inputRequest = {
+      time : new Date().getHours(),
+      btnType : "btnCor",
       sendLocation : sendLocation.value,
       getLocation : getLocation.value,
       option : [nExpress, fExpress],

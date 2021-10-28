@@ -95,8 +95,9 @@ function ComputeIndi() {
   // server 호출---------------------------------------------
 
   const handleSubmit = () => {
-  
     const inputRequest = {
+      time : new Date().getHours(),
+      btnType : "btnIndi",
       location : location.value, 
       price : price.value, 
       option : [nExpress, fExpress, bExpress]
@@ -106,8 +107,9 @@ function ComputeIndi() {
 
     setBtnSum(true)
 
-    axios.post('http://localhost:5000/flask', inputRequest)
+    axios.post('http://localhost:5000/calc/', inputRequest)
       .then(response => {
+        console.log(response)
         // response 받고 이후에 보여주는거 하면됨
         // summmary 에 결과값 전달 후 display
       })

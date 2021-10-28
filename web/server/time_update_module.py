@@ -5,7 +5,7 @@ import pandas as pd
 import time
 import pickle
 import threading
-from prediction import model_run_and_forecast, model_preprocessing
+from model_ import model_run_and_forecast, model_preprocessing
 from keras.models import load_model
 from sklearn.base import clone
 from silence_tensorflow import silence_tensorflow
@@ -17,6 +17,7 @@ def time_update_thread():
     with open("./model/scaler.pickle", 'rb') as p:
         SCALER = pickle.load(p)
 
+    SCALER.clip = False
     INITIAL_DATA = pd.read_csv("./data/initial_data.csv")
     PREDICT_MODEL = load_model("./model/model.h5")
     PREDICT_TIME = 3*24
