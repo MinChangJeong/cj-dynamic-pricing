@@ -87,8 +87,9 @@ function ComputeIndi() {
               SearchLocation(e.target.value)
             }}
           />
-          {locationPreview}
         </div>
+        {locationPreview}
+
           
           <div className="sub">
             <span className="title">상품 금액</span>
@@ -133,10 +134,10 @@ function ComputeIndi() {
             ) : fExpress ? (
               <span className="alert">받으시는 분 주소가 수도권일 경우만 가능합니다.</span>
             ) : null
-          }
-        <Table />
+          } 
+         <Table />
       </div>
-      {
+      {/* {
         costInfo ?  (
           <div className="cost-info">
             <span style={{marginTop:"10px"}}>고객 택배 할증 요금 기준</span>
@@ -149,7 +150,7 @@ function ComputeIndi() {
             <span>할증 요금을 내지 않을 경우 파손시 최대 50만원까지만 보상 받을수 있습니다.</span>
           </div>
         ) : null
-      }
+      } */}
     </div>
   );
 }
