@@ -93,20 +93,32 @@ function ComputeCor() {
           </div>
           <div className="sub">
             <span className="title">상품 옵션</span>
-            <button id="btn1" onClick={
-              () => {
-                setNExpress(true)
-                setFExpress(false)
-                ChangeColorBtn1()
-              }
-            }>상온</button>
-            <button id="btn2" onClick={
+            <div>
+              <button id="btn1" onClick={
+                () => {
+                  setNExpress(true)
+                  setFExpress(false)
+                  // setBExpress(false)
+                  ChangeColorBtn1()
+                }
+              }>상온</button>
+              <button id="btn2" onClick={
+                () => {
+                  setNExpress(false)
+                  setFExpress(true)
+                  // setBExpress(false)
+                  ChangeColorBtn2()
+                }
+              }>냉장, 냉동</button>
+            </div>
+            {/* <button id="btn3" onClick= {
               () => {
                 setNExpress(false)
-                setFExpress(true)
-                ChangeColorBtn2()
+                setFExpress(false)
+                setBExpress(true)
+                ChangeColorBtn3()
               }
-            }>냉장, 냉동</button>
+            }>일반배송</button> */}
           </div>
           {
             nExpress ? (
