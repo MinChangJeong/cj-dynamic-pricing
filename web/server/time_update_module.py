@@ -8,6 +8,7 @@ import threading
 from prediction import model_run_and_forecast, model_preprocessing
 from keras.models import load_model
 from sklearn.base import clone
+
 def time_update_thread():
 
     with open("./model/scaler.pickle", 'rb') as p:

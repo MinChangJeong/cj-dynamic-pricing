@@ -8,6 +8,7 @@ import Sumamry from "./Summary.js"
 import SearchBar from "../search/SearchBar";
 import locationData from '../data/location.json'
 import TrieSearch from 'trie-search';
+import axios from 'axios'
 
 
 const ChangeColorBtn1 = () => {
@@ -105,14 +106,14 @@ function ComputeIndi() {
 
     setBtnSum(true)
 
-    // axios.post('http://localhost:5000/flask', inputRequest)
-    //   .then(response => {
-    //     // response 받고 이후에 보여주는거 하면됨
-    //     // summmary 에 결과값 전달 후 display
-    //   })
-    //   .catch(error => {
-    //     console.log(error)
-    //   })
+    axios.post('http://localhost:5000/flask', inputRequest)
+      .then(response => {
+        // response 받고 이후에 보여주는거 하면됨
+        // summmary 에 결과값 전달 후 display
+      })
+      .catch(error => {
+        console.log(error)
+      })
   
   }
 

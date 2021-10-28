@@ -1,4 +1,6 @@
 from flask import Flask, send_from_directory, request
+from flask.helpers import make_response
+from flask.wrappers import Response
 from flask_restful import Api, Resource, reqparse
 from flask_cors import CORS  # comment this on deployment
 from API import API
@@ -25,28 +27,33 @@ with open("./model/set_fee_mode.pickle", 'rb') as p:
     TRAIN_MODEL = pickle.load(p)
 
 
-@app.route("/", defaults={'path': ''})
-def serve(path):
+# @app.route("/", defaults={'path': ''})
+# def serve(path):
 
-    return send_from_directory(app.static_folder, 'index.html')
+    # return send_from_directory(app.static_folder, 'index.html')
 
 
-@app.route("/calc", methods=['get'])
+@app.route("/calc/", methods=['GET', 'POST'])
 def calc():
 
-    d = int(request.args.get("hour", None))
-    rd.incr(d)
-    
-    a = int(request.args.get("one", None))
-    b = int(request.args.get("two", None))
-    c = int(request.args.get("three", None))
-    
-    result = TRAIN_MODEL.predict(np.array([[a, b, c]]))
+    print(request.data.decode("utf-8"))
 
     return {
-        "result" : result[0],
-        "txt" : "okay"
+        "txt" : "it's okay"
     }
+    # d = int(request.args.get("hour", None))
+    # rd.incr(d)
+    
+    # a = int(request.args.get("one", None))
+    # b = int(request.args.get("two", None))
+    # c = int(request.args.get("three", None))
+    
+    # result = TRAIN_MODEL.predict(np.array([[a, b, c]]))
+
+    # return {
+    #     "result" : result[0],
+    #     "txt" : "okay"
+    # }
 
 # api.add_resource(RUN_MODEL, '/calc')
 @app.route("/")
