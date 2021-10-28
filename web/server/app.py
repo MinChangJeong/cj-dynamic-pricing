@@ -35,22 +35,40 @@ with open("./model/set_fee_mode.pickle", 'rb') as p:
 
 @app.route("/calc/", methods=['GET', 'POST'])
 def calc():
+
     # data to dict
     req_data_dict = json.loads(request.data.decode("utf-8"))
-    distance_weight, time_weight, discount_weight, category_weight, fee_ , time, distance, storage, quantity= set_fee(req_data_dict)
 
-    storage = "상온" if storage == "F" else "냉장/냉동"
+    if req_data_dict["btnType"] == "btnCor":
+        distance_weight, time_weight, discount_weight, category_weight, fee_ , time, distance, storage, quantity= set_fee(req_data_dict)
 
-    return {
-        "distance_weight": distance_weight,
-        "time_weight" : time_weight,
-        "discount_weight" : discount_weight,
-        "category_weight" : category_weight,
-        "fee" : fee_,
-        "time" : time,
-        "distance" : distance,
-        "storage" : storage,
-        "quantity" : quantity
-    }
+        storage = "상온" if storage == "F" else "냉장/냉동"
 
+        return {
+            "distance_weight": distance_weight,
+            "time_weight" : time_weight,
+            "discount_weight" : discount_weight,
+            "category_weight" : category_weight,
+            "fee" : fee_,
+            "time" : time,
+            "distance" : distance,
+            "storage" : storage,
+            "quantity" : quantity
+        }
+    elif req_data_dict["btnType"] == "btnIndi":
+        distance_weight, time_weight, discount_weight, option_weight, price_weight, distance, time, quantity, fee_, price, delivery = set_fee(req_data_dict)
+
+        return {
+            "distance_weight": distance_weight,
+            "time_weight" : time_weight,
+            "discount_weight" : discount_weight,
+            "option_weight" : option_weight,
+            "price_weight" : price_weight,
+            "distance" : distance,
+            "time" : time,
+            "quantity" : quantity,
+            "fee_" : fee_,
+            "price" : price,
+            "delivery" : delivery            
+        }
     # predict_data = inverse_trans()
