@@ -73,7 +73,8 @@ function Table({result}) {
 
   }, [])
 
-  // -----------------------------------------------------------
+  // table set -----------------------------------------------------------------------
+
   // ex)10/19 10~13 배송비용 대한 state값이 있어야 함 (row : 7, column : 3 )
 
 
@@ -82,64 +83,59 @@ function Table({result}) {
   const [futureCosts, setFutureCosts] = useState(null);
 
   const [resultInfo, setResultInfo] = useState(result);
-  
+
+  // table에 들어갈 fee
+  // const [predicts, setPredicts] = useState(result["predict"])
+
   var times =["0~2", "2~4", "4~6", "6~8", "8~10", "10~12", "12~14", "14~16", "16~18", "18~20", "20~22", "22~23:59" ]
 
   var tdPreview = []
 
-  var idx = 1;
+  // 선택된 데이터
+  const [chooseFee, setChooseFee] = useState(null);
 
   const selectTd = (id) => {
-    document.getElementById(id).style.color="red"
+    for(var i=0; i<=22; ) {
+      document.getElementById(`1_${i}`).style.color="black"
+      document.getElementById(`2_${i}`).style.color="black"
+      document.getElementById(`3_${i}`).style.color="black"
+      i+=2;
+    }
+
+    document.getElementById(id).style.color="red";
+    console.log(id)
+
+    // setChooseFee(document.getElementById(id))
   }
+
+
+  var idx = 0;
 
   times.forEach((time) => {
     tdPreview.push(
       <tr>
         <td>{time}</td>
-        <td id={`td_${idx}`} onClick={(e) => selectTd(e.target.id)}>data</td>
-        <td id={`td_${idx+1}`} onClick={(e) => selectTd(e.target.id)}>data</td>
-        <td id={`td_${idx+1}`} onClick={(e) => selectTd(e.target.id)}>data</td>
+        <td id={`1_${idx}`} onClick={(e) => selectTd(e.target.id) } >data</td>
+        <td id={`2_${idx}`} onClick={(e) => selectTd(e.target.id)} >data</td>
+        <td id={`3_${idx}`} onClick={(e) => selectTd(e.target.id)} >data</td>
       </tr>
     )
-    idx +=3
+    idx += 2
   })
 
+  const sample = {'1_6' : 3000, '3_6' : 2000}
+
+
+  // Object.entries(sample).map((data) => {
+  //   var key = data[0];
+  //   var values = data[1];
+
+  // })
+
+  
+
   // -----------------------------------------------------------
-
-  // ex)
-  // const example1 = {
-  //   "0~2" : 2000,
-  //   "2~4" : 2000,
-  //   "4~6" : 2000,
-  //   "6~8" : 2000,
-  // }
-  // const example2 = {
-  //   "0~2" : 2000,
-  //   "2~4" : 2000,
-  //   "4~6" : 2000,
-  //   "6~8" : 2000,
-  // }
-  // const example3 = {
-  //   "0~2" : 2000,
-  //   "2~4" : 2000,
-  //   "4~6" : 2000,
-  //   "6~8" : 2000,
-  // }
-
-  // Object.entries(example1).map((key) => {
-  //   tdPreview.push(
-  //     <tr>
-  //       <td>{key[0]}</td>
-  //       <td id={`td_${idx}`} onClick={test}>{example1[key[0]]}</td>
-  //       <td id={`td_${idx+1}`} onClick={test}>{example2[key[0]]}</td>
-  //       <td id={`td_${idx+1}`} onClick={test}>{example3[key[0]]}</td>
-  //     </tr>
-  //   )
-  //   idx +=3
-  // })  
-
-
+  
   const [check, setCheck] = useState('disabled')
   const [btnSum, SetBtnSum] = useState(false);
 
@@ -153,8 +149,7 @@ function Table({result}) {
           <th>{`${futureInfo.month}월 ${futureInfo.date}일 (${futureInfo.week})`}</th>
         </tr>
         {tdPreview}
-      </table>
-      
+      </table> 
       <button 
         onClick={() => SetBtnSum(true)}
         // disabled={check}

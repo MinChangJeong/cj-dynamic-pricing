@@ -48,14 +48,56 @@ function Summary({result,type}) {
         fee : null,
     });
 
+    const [totalFee, setTotalFee] = useState(null);
+
     const handleDisplayResult = () => {
         // 기업
         if(type == "coporate") {
-            
+            setOrderTime({
+                ...orderTime,
+                time : result["time"],
+                fee : result["time_weight"]
+            })
+            setDistance({
+                ...distance,
+                t_distance : result["distance"],
+                fee : result["distance_weight"]
+            })
+            setOption({
+                ...option,
+                name : result["storage"],
+                fee : result["category_weight"]
+            })
+            setDiscount({
+                ...discount,
+                quantity : result["quantity"],
+                benefits : result["discount_weight"]
+            })
+            setTotalFee(result["fee"])
         }
         // 개인
         else {
-
+            setOrderTime({
+                ...orderTime,
+                time : result["time"],
+                fee : result["time_weight"]
+            })
+            setDistance({
+                ...distance,
+                t_distance : result["distance"],
+                fee : result["distance_weight"]
+            })
+            setOption({
+                ...option,
+                name : result["delivery"],
+                fee : result["option_weight"]
+            })
+            setOrderPrice({
+                ...orderPrice,
+                price : result["price"],
+                fee : result["price_weight"]
+            })
+            setTotalFee(result["fee"])
         }
     }
 
@@ -88,7 +130,7 @@ function Summary({result,type}) {
                         <hr />
                         <div className="all-price">
                             <div>총 합계</div>
-                            <div>{orderPrice.fee + distance.fee + option.fee - discount.benefits}원</div>
+                            <div>{totalFee}원</div>
                         </div>
                     </div>
                 ) : (
@@ -116,7 +158,7 @@ function Summary({result,type}) {
                         <hr />
                         <div className="all-price">
                             <div>총 합계</div>
-                            <div>{orderPrice.fee + distance.fee + orderPrice.fee + option.fee}원</div>
+                            <div>{totalFee}원</div>
                         </div>
                     </div>
                 )

@@ -132,6 +132,8 @@ function ComputeCor() {
         console.log(response)
         // response 받고 이후에 보여주는거 하면됨
         // summmary 에 결과값 전달 후 display
+        console.log(response.data)
+        SetResultInfo(response.data);
       })
       .catch(error => {
         // console.log(inputRequest)
@@ -140,7 +142,7 @@ function ComputeCor() {
       })
   
   }
-  
+
   useEffect(() => {
     if (sendLocation.validateStatus &
         getLocation.validateStatus &

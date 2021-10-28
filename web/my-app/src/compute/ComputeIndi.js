@@ -94,7 +94,7 @@ function ComputeIndi() {
   }
 
   const [resultInfo, SetResultInfo] = useState(null);
-
+  
   // server 호출---------------------------------------------
 
   const handleSubmit = () => {
