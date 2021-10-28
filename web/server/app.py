@@ -11,8 +11,12 @@ from datetime import datetime, timedelta
 from threading import Thread
 import time
 from time_update_module import time_update_thread
+from prediction import inverse_trans
+from silence_tensorflow import silence_tensorflow
+silence_tensorflow()
+np.seterr(all="ignore")
 
-rd = redis.StrictRedis(host="localhost", port= 6379, db=0)
+rd = redis.StrictRedis(host="localhost", port= 6379, db=1)
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 CORS(app)  # comment this on deployment
@@ -41,6 +45,7 @@ def calc():
     return {
         "txt" : "it's okay"
     }
+    predict_data = inverse_trans()
     # d = int(request.args.get("hour", None))
     # rd.incr(d)
     
@@ -56,11 +61,11 @@ def calc():
     # }
 
 # api.add_resource(RUN_MODEL, '/calc')
-@app.route("/")
-def index():
+# @app.route("/")
+# def index():
     
-    return {
-        "task" : "Thread"
-    }
+#     return {
+#         "task" : "Thread"
+#     }
 
 

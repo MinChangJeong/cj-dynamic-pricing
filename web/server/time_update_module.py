@@ -8,6 +8,9 @@ import threading
 from prediction import model_run_and_forecast, model_preprocessing
 from keras.models import load_model
 from sklearn.base import clone
+from silence_tensorflow import silence_tensorflow
+silence_tensorflow()
+np.seterr(all="ignore")
 
 def time_update_thread():
 
