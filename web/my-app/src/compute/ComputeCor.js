@@ -2,6 +2,7 @@ import "./ComputeCor.css"
 import React, {useState, useEffect} from 'react';
 import icon from '../img/icon1.png'
 
+import Summary from "./Summary.js"
 import SearchBar from "../search/SearchBar";
 import locationData from "../data/location.json";
 import TrieSearch from 'trie-search';
@@ -32,6 +33,8 @@ function ComputeCor() {
 
   const [nExpress, setNExpress] = useState(false);
   const [fExpress, setFExpress] = useState(false);
+
+  const [btnSum, setBtnSum] = useState('disabled');
 
   // 보내는 사람 권역----------------------------------------------
   const [sendLocation, setSendLocation] = useState({
@@ -94,7 +97,9 @@ function ComputeCor() {
   // ----------------------------------------------
   
   // 입력값 전송(기업)---------------------------------------------
-  
+
+  const [resultInfo, SetResultInfo] = useState(null);
+
   // 보내는 사람 권역주소, 받는 사람 권역 주소, 상품옵션, 월출고량, 카테고리
   // sendLocation, getLocation, [nExpress || fExpress]중 true값, 월 출고량
   const [quantity, setQuantity] = useState({
@@ -127,7 +132,17 @@ function ComputeCor() {
     //   })
   
   }
+  
+  useEffect(() => {
+    if (sendLocation.validateStatus &
+        getLocation.validateStatus &
+        quantity.validateStatus &
+        category.validateStatus
+      ) {
+      setBtnSum(null);
+    }
 
+  }, [sendLocation.validateStatus, getLocation.validateStatus, quantity.validateStatus, category.validateStatus])
 
   //----------------------------------------------
 
@@ -259,9 +274,15 @@ function ComputeCor() {
       <button 
         className="price-title" 
         onClick={handleSubmit}
+        disabled={btnSum}
       >
         최종 배송비 확인
       </button>
+      {
+        btnSum == null ? (
+          <Summary result={resultInfo}/>
+        ) : null
+      }
     </div>
 
   );

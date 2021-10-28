@@ -4,7 +4,7 @@ import Table from '../table/Table.js'
 
 import icon from '../img/icon1.png'
 
-import Sumamry from "./Summary.js"
+import Summary from "./Summary.js"
 import SearchBar from "../search/SearchBar";
 import locationData from '../data/location.json'
 import TrieSearch from 'trie-search';
@@ -53,7 +53,7 @@ function ComputeIndi() {
   const [fExpress, setFExpress] = useState(false);
   const [bExpress, setBExpress] = useState(false);
 
-  const [btnSum, setBtnSum] = useState(false);
+  const [btnSum, setBtnSum] = useState('disabled');
 
   // 받는 사람 주소(권역) ---------------------------------------------
   const [location, setLocation] = useState({
@@ -91,6 +91,8 @@ function ComputeIndi() {
     });
   }
 
+  const [resultInfo, SetResultInfo] = useState(null);
+
   // server 호출---------------------------------------------
 
   const handleSubmit = () => {
@@ -103,7 +105,7 @@ function ComputeIndi() {
   
     console.log(inputRequest)
 
-    setBtnSum(true)
+
 
     // axios.post('http://localhost:5000/flask', inputRequest)
     //   .then(response => {
@@ -118,12 +120,12 @@ function ComputeIndi() {
 
   // ---------------------------------------------
 
-  const isFormInvalid = () => {
-    return (
-        location.validateStatus &
-        price.validateStatus 
-    )
-  }
+  useEffect(() => {
+    if (location.validateStatus & price.validateStatus) {
+      setBtnSum(null);
+    }
+
+  }, [location.validateStatus, price.validateStatus])
 
   return (
     <div className="ComputeIndi">
@@ -198,21 +200,16 @@ function ComputeIndi() {
             }>일반배송</button>
           </div>
         </div>
-          {
-            nExpress ? (
-              <span className="alert">받으시는 분 주소가 수도권일 경우만 가능합니다.</span>
-            ) : fExpress ? (
-              <span className="alert">받으시는 분 주소가 수도권일 경우만 가능합니다.</span>
-            ) : null
-          } 
-
-         {
-           // submit 버튼을 눌러야만 나오게 수정
-          btnSum ? (
-            // table 데이터 보내주게 만들어야함
-            <Table />
+        {
+          nExpress ? (
+            <span className="alert">받으시는 분 주소가 수도권일 경우만 가능합니다.</span>
+          ) : fExpress ? (
+            <span className="alert">받으시는 분 주소가 수도권일 경우만 가능합니다.</span>
           ) : null
-         }
+        } 
+        {
+          // table 이 나오는 순서를 확실히 해야할 필요가 있음
+        }
       </div>
       {
         costInfo ?  (
@@ -229,14 +226,15 @@ function ComputeIndi() {
         ) : null
       }
       <button 
-        className="price-title" 
-        onClick={handleSubmit}
+        className="price-title"
+        onClick={handleSubmit} 
+        disabled={btnSum}
       >
         최종 배송비 확인
       </button>
       {
-        isFormInvalid() ? (
-          <Sumamry />
+        btnSum == null ? (
+          <Summary result={resultInfo}/>
         ) : null
       }
     </div>
