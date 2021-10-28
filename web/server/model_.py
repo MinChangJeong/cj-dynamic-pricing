@@ -70,27 +70,27 @@ def set_fee(req_data_dict):
 
         distance = haversine(sender, receiver)
 
-        print(time, send_location, get_location, quantity, distance, storage)
-
         initial_fee = 2100
         set_option_fee = np.array([distance, time, quantity]).reshape(1, -1)
         fee_ = MODEL_FEE.predict(set_option_fee)
 
-        option_weight = 0
+        category_weight = 0
         if storage == "I":
-            option_weight = option_weight + 300
+            category_weight = category_weight + 300
 
 
         distance_weight = (fee_ - initial_fee ) * MODEL_FEE.feature_importances_[0]
         time_weight = (fee_ - initial_fee) * MODEL_FEE.feature_importances_[1]
-        category_weight = (fee_ - initial_fee) * MODEL_FEE.feature_importances_[2]
+        discount_weight = (fee_ - initial_fee) * MODEL_FEE.feature_importances_[2]
 
-        last_fee_ = fee_[0] + option_weight
+        last_fee_ = fee_[0] + category_weight
 
-        return int(distance_weight), int(time_weight), int(category_weight), int(option_weight), int(last_fee_)
+        return int(distance_weight), int(time_weight), int(discount_weight), int(category_weight), int(last_fee_), int(time), int(distance), storage, int(quantity)
 
     elif req_data_dict["btnType"] == "btnIndi":
-        send_location = LOCATION[req_data_dict["location"]]
+        time = req_data_dict["time"]
+        receiver = LOCATION[req_data_dict["location"]]
+
         price = req_data_dict["price"]
         if req_data_dict["price"][0]:
             option = "N" ## 새벽
@@ -99,7 +99,26 @@ def set_fee(req_data_dict):
         elif req_data_dict["price"][2]:
             option = "B" ## 일반
          
-        print(send_location, option, price)
+        sender = (37.384, 127.314)
+
+        quantity = 0
+        distance = haversine(sender, receiver)
+        set_option_fee = np.array([distance, time, quantity]).reshape(1, -1)
+
+        fee_ = MODEL_FEE.predict(set_option_fee)
+
+        option_weight = 0
+        if option == "N":
+            option_weight = option_weight + 500
+        elif option == "F": 
+            option_weight = option_weight + 300
+        else:
+            option_weight = 0
+        
+        # if price
+
+
+        print(receiver, option, price)
 
     # sender = ()
     # receiver = ()

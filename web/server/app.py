@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 from threading import Thread
 import time
 import json
-# from time_update_module import time_update_thread
+from time_update_module import time_update_thread
 from model_ import inverse_trans, set_fee
 from silence_tensorflow import silence_tensorflow
 silence_tensorflow()
@@ -24,9 +24,9 @@ app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 CORS(app)  # comment this on deployment
 api = Api(app)
 
-# thread = Thread(target=time_update_thread)
-# thread.daemon = True
-# thread.start()
+thread = Thread(target=time_update_thread)
+thread.daemon = True
+thread.start()
 
 
 with open("./model/set_fee_mode.pickle", 'rb') as p:
@@ -37,13 +37,20 @@ with open("./model/set_fee_mode.pickle", 'rb') as p:
 def calc():
     # data to dict
     req_data_dict = json.loads(request.data.decode("utf-8"))
-    distance_weight, time_weight, category_weight, option_weight, fee_ = set_fee(req_data_dict)
+    distance_weight, time_weight, discount_weight, category_weight, fee_ , time, distance, storage, quantity= set_fee(req_data_dict)
+
+    storage = "상온" if storage == "F" else "냉장/냉동"
 
     return {
         "distance_weight": distance_weight,
         "time_weight" : time_weight,
+        "discount_weight" : discount_weight,
         "category_weight" : category_weight,
-        "option_weight" : option_weight,
-        "fee" : fee_
+        "fee" : fee_,
+        "time" : time,
+        "distance" : distance,
+        "storage" : storage,
+        "quantity" : quantity
     }
+
     # predict_data = inverse_trans()
