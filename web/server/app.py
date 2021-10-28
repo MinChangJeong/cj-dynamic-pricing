@@ -15,6 +15,7 @@ from time_update_module import time_update_thread
 from model_ import inverse_trans, set_fee
 from silence_tensorflow import silence_tensorflow
 silence_tensorflow()
+
 np.seterr(all="ignore")
 
 rd = redis.StrictRedis(host="localhost", port=6379, db=1)
