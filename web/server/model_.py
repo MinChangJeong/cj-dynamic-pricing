@@ -5,6 +5,7 @@ import pickle
 import json
 from silence_tensorflow import silence_tensorflow
 from haversine import haversine
+import os
 
 silence_tensorflow()
 np.seterr(all="ignore")
@@ -39,19 +40,20 @@ def model_run_and_forecast(model, data, PREDICT_TIME):
         forecast_results.append(forecast_result[0][0])
 
         data_rs = np.append(data_rs, [forecast_result])[1:]
+    past_data = data[-1][0]
 
-
-    return forecast_results
+    return forecast_results, past_data
 
 
 def inverse_trans():
-    with open("/result/predict_result.pickle", "rb") as f:
+
+    with open("./result/predict_result.pickle", "rb") as f:
         predict = pickle.load(f)
     
-    with open("./model/caler.pickle", "rb") as s:
+    with open("./model/scaler.pickle", "rb") as s:
         scaler = pickle.load(s)
 
-    return scaler.inverse_transform(np.array(predict).reshape(-1, 1))
+    return scaler.inverse_transform(np.array(predict[0]).reshape(-1, 1)), scaler.inverse_transform(np.array(predict[1].reshape(1, -1)))[0][0]
 
 
 def set_fee(req_data_dict):

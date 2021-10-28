@@ -35,9 +35,38 @@ with open("./model/set_fee_mode.pickle", 'rb') as p:
 
 @app.route("/calc/", methods=['GET', 'POST'])
 def calc():
+    predict_result, s_data = inverse_trans()
+
+    predict_value = []
+    for i in range(len(predict_result)):
+        if predict_result[i][0] < s_data:
+            predict_value.append(300)
+        else:
+            predict_value.append(-300)
 
     # data to dict
     req_data_dict = json.loads(request.data.decode("utf-8"))
+
+    result_dict = {}
+    count = 0
+    flag = False
+    
+    for i in range(1, 4):
+        for j in range(0, 24, 2):
+            if (i == 1) and ( (req_data_dict["time"] >= j) and (req_data_dict["time"] < j+2 )):
+                flag = True
+                if j % 2 == 0:
+                    is_start = j + 2
+                elif j % 2 == 1:
+                    is_start = j + 1
+                continue
+            if flag == True:
+                result_dict[str(i) + "_" + str(j)] = predict_value[count]
+                count = count + 1
+
+    predict_result_set = predict_result[:-is_start]
+
+    print(result_dict)
 
     if req_data_dict["btnType"] == "btnCor":
         distance_weight, time_weight, discount_weight, category_weight, fee_ , time, distance, storage, quantity= set_fee(req_data_dict)
@@ -69,6 +98,7 @@ def calc():
             "quantity" : quantity,
             "fee_" : fee_,
             "price" : price,
-            "delivery" : delivery            
+            "delivery" : delivery,    
+            "predict" : result_dict      
         }
     # predict_data = inverse_trans()
