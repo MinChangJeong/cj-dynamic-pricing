@@ -12,6 +12,8 @@ import step2 from "../img/step2.png"
 import step3 from "../img/step3.png"
 import step4 from "../img/step4.png"
 
+import locationData from '../data/location.json'
+
 const ChangeColorCor = () => {
   document.getElementById("cor").style.backgroundColor="#3182f6"
   document.getElementById("cor").style.color="white"
@@ -29,6 +31,43 @@ const ChangeColorIndi = () => {
 
 }
 
+function Summary () {
+  return (
+    <div className="Summary">
+        <div className="price-container">
+          <div className="price-list">
+            <div className="detail1">
+                <div className="space">주문시간</div>
+                <div className="space">주고 받는 거리</div>
+                <div className="space">상품 금액</div>
+                <div className="space">배송 옵션</div>
+                <div className="space">할인 혜택</div>
+            </div>
+            <div class="detail2">
+                <div className="space">오후 5시 17분</div>
+                <div className="space">100km 내</div>
+                <div className="space">20,000원</div>
+                <div className="space">20,000원</div>
+                <div className="space">SILVER</div>
+            </div>
+            <div className="detail3">
+                <div className="space">+?00원</div>
+                <div className="space">+?00원</div>
+                <div className="space">+?00원</div>
+                <div className="space">+?00원</div>
+                <div className="space">-?00원</div>
+            </div>
+          </div>
+          <hr />
+          <div className="all-price">
+            <div>총 합계</div>
+            <div>???,???원</div>
+          </div>
+        </div>
+    </div>
+  ) ;
+}
+
 function App() {
   // flask 연결 예시
   // const [getMessage, setGetMessage] = useState([]);
@@ -41,11 +80,24 @@ function App() {
   //     console.log(error)
   //   })
   // }, [])
-  
-  
+
+  // const [location, setLocation] = useState(null);
+
+  // useEffect(() => {
+  //   var result = {}
+
+  //   for(var key in locationData) {
+  //     result[key] = locationData[key]
+  //   }
+  //   setLocation(result)
+  // },[])
+
+
   const [btnCor, setBtnCor] = useState(false);
   const [btnIndi, setBtnIndi] = useState(false);
 
+  const [btnSum, setBtnSum] = useState(false);
+  
   return (
     <div className="App"> 
       <h1>e-풀필먼트 배송비 계산기</h1>
@@ -94,40 +146,14 @@ function App() {
           }
           </div>
       </div>
-      
-      <div className="price-title">최종 배송비 확인</div>
-      <div className="price-container">
-        <div className="price-list">
-          <div className="detail1">
-              <div className="space">주문시간</div>
-              <div className="space">주고 받는 거리</div>
-              <div className="space">상품 금액</div>
-              <div className="space">배송 옵션</div>
-              <div className="space">할인 혜택</div>
-          </div>
-          <div class="detail2">
-              <div className="space">오후 5시 17분</div>
-              <div className="space">100km 내</div>
-              <div className="space">20,000원</div>
-              <div className="space">20,000원</div>
-              <div className="space">SILVER</div>
-          </div>
-          <div className="detail3">
-              <div className="space">+?00원</div>
-              <div className="space">+?00원</div>
-              <div className="space">+?00원</div>
-              <div className="space">+?00원</div>
-              <div className="space">-?00원</div>
-          </div>
-        </div>
-        <hr />
-        <div className="all-price">
-          <div>총 합계</div>
-          <div>???,???원</div>
-        </div>
-      </div>
-        
-
+      <div className="price-title" onClick={() => setBtnSum(!btnSum)}>최종 배송비 확인</div>
+      {
+        btnSum ? (
+          <Summary />          
+        ) : (
+          null
+        )
+      }
     </div>
   );
 }
