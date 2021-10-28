@@ -21,8 +21,6 @@ const ChangeColorBtn2 = () => {
 
 }
 
-
-
 function ComputeCor() {
   // CSS state
   const [costInfo, setCostInfo] = useState(false);
@@ -98,7 +96,6 @@ function ComputeCor() {
                 () => {
                   setNExpress(true)
                   setFExpress(false)
-                  // setBExpress(false)
                   ChangeColorBtn1()
                 }
               }>상온</button>
@@ -106,19 +103,10 @@ function ComputeCor() {
                 () => {
                   setNExpress(false)
                   setFExpress(true)
-                  // setBExpress(false)
                   ChangeColorBtn2()
                 }
               }>냉장, 냉동</button>
             </div>
-            {/* <button id="btn3" onClick= {
-              () => {
-                setNExpress(false)
-                setFExpress(false)
-                setBExpress(true)
-                ChangeColorBtn3()
-              }
-            }>일반배송</button> */}
           </div>
           {
             nExpress ? (
