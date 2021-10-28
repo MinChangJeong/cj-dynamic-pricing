@@ -6,19 +6,19 @@ from flask_cors import CORS  # comment this on deployment
 from API import API
 import pickle
 # import numpy as np
-import redis 
+import redis
 from datetime import datetime, timedelta
 from threading import Thread
 import time
 import json
 from time_update_module import time_update_thread
 from model_ import inverse_trans, set_fee
-from silence_tensorflow import silence_tensorflow
-silence_tensorflow()
+# from silence_tensorflow import silence_tensorflow
+# silence_tensorflow()
 
-np.seterr(all="ignore")
+# np.seterr(all="ignore")
 
-rd = redis.StrictRedis(host="localhost", port= 6379, db=1)
+rd = redis.StrictRedis(host="localhost", port=6379, db=1)
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 CORS(app)  # comment this on deployment
@@ -41,22 +41,21 @@ with open("./model/set_fee_mode.pickle", 'rb') as p:
 
 @app.route("/calc/", methods=['GET', 'POST'])
 def calc():
-    ## data to dict
+    # data to dict
     req_data_dict = json.loads(request.data.decode("utf-8"))
     set_fee(req_data_dict)
 
-
     return {
-        "txt" : "it's okay"
+        "txt": "it's okay"
     }
     predict_data = inverse_trans()
     # d = int(request.args.get("hour", None))
     # rd.incr(d)
-    
+
     # a = int(request.args.get("one", None))
     # b = int(request.args.get("two", None))
     # c = int(request.args.get("three", None))
-    
+
     # result = TRAIN_MODEL.predict(np.array([[a, b, c]]))
 
     # return {
@@ -67,9 +66,7 @@ def calc():
 # api.add_resource(RUN_MODEL, '/calc')
 # @app.route("/")
 # def index():
-    
+
 #     return {
 #         "task" : "Thread"
 #     }
-
-
