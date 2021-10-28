@@ -4,43 +4,44 @@ import Table from '../table/Table.js'
 
 import icon from '../img/icon1.png'
 
+const ChangeColorBtn1 = () => {
+  document.getElementById("btn1").style.backgroundColor="#3182f6"
+  document.getElementById("btn1").style.color="white"
+
+  document.getElementById("btn2").style.backgroundColor="white"
+  document.getElementById("btn2").style.color="black"
+
+  document.getElementById("btn3").style.backgroundColor="white"
+  document.getElementById("btn3").style.color="black"
+}
+
+const ChangeColorBtn2 = () => {
+  document.getElementById("btn2").style.backgroundColor="#3182f6"
+  document.getElementById("btn2").style.color="white"
+
+  document.getElementById("btn1").style.backgroundColor="white"
+  document.getElementById("btn1").style.color="black"
+
+  document.getElementById("btn3").style.backgroundColor="white"
+  document.getElementById("btn3").style.color="black"
+
+}
+
+const ChangeColorBtn3 = () => {
+  document.getElementById("btn3").style.backgroundColor="#3182f6"
+  document.getElementById("btn3").style.color="white"
+
+  document.getElementById("btn1").style.backgroundColor="white"
+  document.getElementById("btn1").style.color="black"
+
+  document.getElementById("btn2").style.backgroundColor="white"
+  document.getElementById("btn2").style.color="black"
+
+}
+
+
 function ComputeIndi() {
   const [costInfo, setCostInfo] = useState(false);
-
-  const ChangeColorBtn1 = () => {
-    document.getElementById("btn1").style.backgroundColor="#3182f6"
-    document.getElementById("btn1").style.color="white"
-
-    document.getElementById("btn2").style.backgroundColor="white"
-    document.getElementById("btn2").style.color="black"
-
-    document.getElementById("btn3").style.backgroundColor="white"
-    document.getElementById("btn3").style.color="black"
-  }
-
-  const ChangeColorBtn2 = () => {
-    document.getElementById("btn2").style.backgroundColor="#3182f6"
-    document.getElementById("btn2").style.color="white"
-
-    document.getElementById("btn1").style.backgroundColor="white"
-    document.getElementById("btn1").style.color="black"
-
-    document.getElementById("btn3").style.backgroundColor="white"
-    document.getElementById("btn3").style.color="black"
-
-  }
-
-  const ChangeColorBtn3 = () => {
-    document.getElementById("btn3").style.backgroundColor="#3182f6"
-    document.getElementById("btn3").style.color="white"
-
-    document.getElementById("btn1").style.backgroundColor="white"
-    document.getElementById("btn1").style.color="black"
-
-    document.getElementById("btn2").style.backgroundColor="white"
-    document.getElementById("btn2").style.color="black"
-
-  }
 
   const [nExpress, setNExpress] = useState(false);
   const [fExpress, setFExpress] = useState(false);
