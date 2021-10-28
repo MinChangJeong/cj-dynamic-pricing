@@ -1,60 +1,95 @@
 import "./ComputeCor.css"
 import React, {useState, useEffect} from 'react';
 import icon from '../img/icon1.png'
+import locationData from "../data/location.json";
+
+const ChangeColorBtn1 = () => {
+  document.getElementById("btn1").style.backgroundColor="#3182f6"
+  document.getElementById("btn1").style.color="white"
+
+  document.getElementById("btn2").style.backgroundColor="white"
+  document.getElementById("btn2").style.color="black"
+
+}
+
+const ChangeColorBtn2 = () => {
+  document.getElementById("btn2").style.backgroundColor="#3182f6"
+  document.getElementById("btn2").style.color="white"
+
+  document.getElementById("btn1").style.backgroundColor="white"
+  document.getElementById("btn1").style.color="black"
+
+}
+
+
 
 function ComputeCor() {
+  // CSS state
   const [costInfo, setCostInfo] = useState(false);
-
-  const ChangeColorBtn1 = () => {
-    document.getElementById("btn1").style.backgroundColor="#3182f6"
-    document.getElementById("btn1").style.color="white"
-
-    document.getElementById("btn2").style.backgroundColor="white"
-    document.getElementById("btn2").style.color="black"
-
-    // document.getElementById("btn3").style.backgroundColor="white"
-    // document.getElementById("btn3").style.color="black"
-  }
-
-  const ChangeColorBtn2 = () => {
-    document.getElementById("btn2").style.backgroundColor="#3182f6"
-    document.getElementById("btn2").style.color="white"
-
-    document.getElementById("btn1").style.backgroundColor="white"
-    document.getElementById("btn1").style.color="black"
-
-    // document.getElementById("btn3").style.backgroundColor="white"
-    // document.getElementById("btn3").style.color="black"
-
-  }
-
-  // const ChangeColorBtn3 = () => {
-  //   document.getElementById("btn3").style.backgroundColor="#3182f6"
-  //   document.getElementById("btn3").style.color="white"
-
-  //   document.getElementById("btn1").style.backgroundColor="white"
-  //   document.getElementById("btn1").style.color="black"
-
-  //   document.getElementById("btn2").style.backgroundColor="white"
-  //   document.getElementById("btn2").style.color="black"
-
-  // }
 
   const [nExpress, setNExpress] = useState(false);
   const [fExpress, setFExpress] = useState(false);
-  const [bExpress, setBExpress] = useState(false);
+  
+  // value state
+  const [sendLocation, setSendLocation] = useState({
+    name : "서울특별시 강남구",
+    latitude : null,
+    longitude : null,
+  });
+  const [getLocation, setGetLocation] = useState({
+    name : "광주광역시 남구",
+    latitude : null,
+    longitude : null,
+  });
+  
+  
+  useEffect(()=> {
+    if (locationData[sendLocation.name] != null) {
+      var result = locationData[sendLocation.name];
 
+      setSendLocation({
+        ...sendLocation,
+        latitude : result[0],
+        longitude : result[1],
+      })
+    }
+    console.log(sendLocation)
+  }, [sendLocation.name])
+  
+
+  // jsx
 
   return (
     <div className="ComputeCor">
       <div className="container">
           <div className="sub">
             <span className="title">보내시는 분 배송 권역</span>
-            <input type="text" placeholder=""/>
+            <input 
+              className="search-bar"
+              type="text" 
+              placeholder="서울특별시 강남구"
+              onChange={(e) => {
+                setSendLocation({
+                  ...sendLocation,
+                  name : e.target.value
+                });
+              }}
+            />
           </div>
           <div className="sub">
             <span className="title">받으시는 분 배송 권역</span>
-            <input type="text" placeholder=""/>
+            <input 
+              className="search-bar"
+              type="text" 
+              placeholder="광주광역시 남구"
+              onChange={(e) => {
+                setGetLocation({
+                  ...getLocation,
+                  name : e.target.value
+                });
+              }}
+            
+            />
           </div>
           <div className="sub">
             <span className="title">상품 옵션</span>
