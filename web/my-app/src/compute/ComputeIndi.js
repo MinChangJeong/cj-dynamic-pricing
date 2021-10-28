@@ -4,6 +4,10 @@ import Table from '../table/Table.js'
 
 import icon from '../img/icon1.png'
 
+import SearchBar from "../search/SearchBar";
+import locationData from '../data/location.json'
+import TrieSearch from 'trie-search';
+
 const ChangeColorBtn1 = () => {
   document.getElementById("btn1").style.backgroundColor="#3182f6"
   document.getElementById("btn1").style.color="white"
@@ -47,20 +51,51 @@ function ComputeIndi() {
   const [fExpress, setFExpress] = useState(false);
   const [bExpress, setBExpress] = useState(false);
 
+  const [location, setLocation] = useState("");
+  const [result, setResult] = useState([]);
+
+  const SearchLocation =  (data) => {
+    const trie = new TrieSearch();
+  
+    trie.addFromObject(locationData);
+
+    var results = trie.search(data)
+
+    setResult(results);
+  }
+  
+  const locationPreview = []
+
+  result.forEach((data) => {
+    locationPreview.push(
+      <SearchBar keyword={location} postcode={data}/>
+    )
+  })
 
   return (
     <div className="ComputeIndi">
       <div className="container">
-          <div className="sub">
-            <span className="title">받으시는 분 배송 권역</span>
-            <input type="text" placeholder=""/>
-          </div>
+          
+        <div className="sub">
+          <span className="title">받으시는 분 배송 권역</span>
+          <input
+            name="search-bar" 
+            type="text"
+            placeholder="Search..."
+            onChange={(e) => {
+              setLocation(e.target.value);
+              SearchLocation(e.target.value)
+            }}
+          />
+          {locationPreview}
+        </div>
+          
           <div className="sub">
             <span className="title">상품 금액</span>
             <input type="text" placeholder=""/>
-            {/* <img className="icon" src={icon} onClick={
+            <img className="icon" src={icon} onClick={
               () => setCostInfo(!costInfo)
-            }/> */}
+            }/>
             
           </div>
           <div className="sub">
@@ -99,22 +134,22 @@ function ComputeIndi() {
               <span className="alert">받으시는 분 주소가 수도권일 경우만 가능합니다.</span>
             ) : null
           }
-          <Table />
-        </div>
-        {
-          costInfo ?  (
-            <div className="cost-info">
-              <span style={{marginTop:"10px"}}>고객 택배 할증 요금 기준</span>
-              &nbsp;
-              <span>50 ~ 100 만원 : 2000원</span>
-              <span>100 ~ 200 만원 : 4000원</span>
-              <span>200 ~ 300 만원 : 6000원</span>
-              &nbsp;
-              <span>300만원 이상은 취급하지 않습니다.</span>
-              <span>할증 요금을 내지 않을 경우 파손시 최대 50만원까지만 보상 받을수 있습니다.</span>
-            </div>
-          ) : null
-        }
+        <Table />
+      </div>
+      {
+        costInfo ?  (
+          <div className="cost-info">
+            <span style={{marginTop:"10px"}}>고객 택배 할증 요금 기준</span>
+            &nbsp;
+            <span>50 ~ 100 만원 : 2000원</span>
+            <span>100 ~ 200 만원 : 4000원</span>
+            <span>200 ~ 300 만원 : 6000원</span>
+            &nbsp;
+            <span>300만원 이상은 취급하지 않습니다.</span>
+            <span>할증 요금을 내지 않을 경우 파손시 최대 50만원까지만 보상 받을수 있습니다.</span>
+          </div>
+        ) : null
+      }
     </div>
   );
 }
