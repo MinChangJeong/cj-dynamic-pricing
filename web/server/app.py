@@ -5,7 +5,7 @@ from flask_restful import Api, Resource, reqparse
 from flask_cors import CORS  # comment this on deployment
 from API import API
 import pickle
-import numpy as np
+# import numpy as np
 import redis 
 from datetime import datetime, timedelta
 from threading import Thread

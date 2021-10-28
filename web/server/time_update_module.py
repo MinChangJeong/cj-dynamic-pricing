@@ -12,6 +12,8 @@ from silence_tensorflow import silence_tensorflow
 silence_tensorflow()
 np.seterr(all="ignore")
 
+
+
 def time_update_thread():
 
     with open("./model/scaler.pickle", 'rb') as p:
@@ -23,50 +25,46 @@ def time_update_thread():
     PREDICT_TIME = 3*24
     rd = redis.StrictRedis(host="localhost", port=6379, db=1)
 
-    ### initial model
+    # initial model
     initial_x = model_preprocessing(INITIAL_DATA, SCALER)
-    predict_result = model_run_and_forecast(PREDICT_MODEL, initial_x, PREDICT_TIME)
+    predict_result = model_run_and_forecast(
+        PREDICT_MODEL, initial_x, PREDICT_TIME)
 
     with open("./result/predict_result.pickle", "wb") as r:
         pickle.dump(predict_result, r, pickle.HIGHEST_PROTOCOL)
 
-
-    ### initial redis
+    # initial redis
     for i in range(1, (PREDICT_TIME + 1)):
         rd.set(i, 0)
 
-    ### time, result update per hour
+    # time, result update per hour
 
     while True:
-        ## time update
+        # time update
         print("Time Update")
         time.sleep(3600)
 
-        new_time_set = {PREDICT_TIME : 0}
+        new_time_set = {PREDICT_TIME: 0}
         for index in range(1, PREDICT_TIME + 1):
             if index == 1:
                 time_index1 = rd.get(index).decode("utf-8")
             else:
                 new_time_set[index-1] = rd.get(index).decode("utf-8")
 
-
         for key, values in new_time_set.items():
             rd.set(key, int(values))
-        
-        ## predict data update
+
+        # predict data update
         update_data = predict_result[0] + SCALER.transform([[time_index1]])
         test_predict = np.append(initial_x, update_data)[1:]
 
-        ## reset data, update result
+        # reset data, update result
         initial_x = test_predict
-        predict_result = model_run_and_forecast(PREDICT_MODEL, initial_x, PREDICT_TIME)
+        predict_result = model_run_and_forecast(
+            PREDICT_MODEL, initial_x, PREDICT_TIME)
 
         with open("./result/predict_result.pickle", "wb") as r:
             pickle.dump(predict_result, r, pickle.HIGHEST_PROTOCOL)
 
 
-        
-
-
-
-
+time_update_thread()

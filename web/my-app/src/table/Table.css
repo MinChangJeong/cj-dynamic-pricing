@@ -1,23 +1,33 @@
+.table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 table {
     text-align: center;
     border: 2px solid white;
     width: 500px;
     margin-top: 10px;
-    margin-left: 300px;
+    margin-bottom: 80px;
     border-collapse: collapse;
 }
 
-table th, td {
+table th,
+td {
     font-weight: normal;
     font-size: 14px;
     border: 1px solid #dbdbdb;
     padding: 8px;
 }
-
-table td:hover {
+button {
     background-color: #3182f6;
     color: white;
+    margin-bottom: 30px;
 }
-.time:hover {
+
+/* .time:hover {
     background-color: white;
-}
+    color: black;
+} */
