@@ -1,7 +1,9 @@
 import "./Table.css"
 import React, {useState, useEffect} from 'react';
 
-function Table() {
+import Summary from "../compute/Summary";
+
+function Table({result}) {
 
   const [now, setNow] = useState(new Date());
   const [nowInfo, setNowInfo] = useState(
@@ -12,16 +14,16 @@ function Table() {
     }
   )
 
-  const [tommorow, setTommorow] = useState(new Date(now.setDate(now.getDate()+1)));
-  const [tommorowInfo, setTommorowInfo] = useState(
+  const [tomorrow, setTomorrow] = useState(new Date(now.setDate(now.getDate()+1)));
+  const [tomorrowInfo, setTomorrowInfo] = useState(
     {
-      month : tommorow.getMonth()+1,
-      date : tommorow.getDate(),
-      week : tommorow.getDay(),
+      month : tomorrow.getMonth()+1,
+      date : tomorrow.getDate(),
+      week : tomorrow.getDay(),
     }
   )
 
-  const [future, setFuture] = useState(new Date(tommorow.setDate(tommorow.getDate()+1)));
+  const [future, setFuture] = useState(new Date(tomorrow.setDate(tomorrow.getDate()+1)));
   const [futureInfo, setFutureInfo] = useState(
     {
       month : future.getMonth()+1,
@@ -60,9 +62,9 @@ function Table() {
       ...nowInfo,
       week : get_week(nowInfo.week)
     });
-    setTommorowInfo({
-      ...tommorowInfo, 
-      week : get_week(tommorowInfo.week),
+    setTomorrowInfo({
+      ...tomorrowInfo, 
+      week : get_week(tomorrowInfo.week),
     });
     setFutureInfo({
       ...futureInfo, 
@@ -73,16 +75,29 @@ function Table() {
 
   // ex)10/19 10~13 배송비용 대한 state값이 있어야 함 (row : 7, column : 3 )
   
-  const [charges, setCharges] = useState(
-    {
-      nowCharges : [],
-      tommorowCharges : [],
-      futureCharges : [],
-    }
-  );
 
-  // 값을 받아오는걸 socket으로 받아와야함
+  // -----------------------------------------------------------
+  const [nowCosts, setNowCosts] = useState(null);
+  const [tomCosts, setTomCosts] = useState(null);
+  const [futrueCosts, setFutureCosts] = useState(null);
 
+  const [resultInfo, setResultInfo] = useState(null);
+  // useEffect(() => {
+  //   // ex) 10/28 :  0~2 시 : 금액
+  //   //     10/28 : 2~4 시 : 금액  을 쭉 담은 리스트 3개를 받아야함
+  // }, [])
+
+
+  // ex)
+  
+  // -----------------------------------------------------------
+
+  const [check, setCheck] = useState('disabled')
+  const [btnSum, SetBtnSum] = useState(false);
+
+  useEffect(  () => {
+    console.log(btnSum)
+  }, [btnSum])
 
   return (
     <div className="table">
@@ -90,52 +105,23 @@ function Table() {
         <tr>
           <th>일자/시간</th>
           <th>{`${nowInfo.month}월 ${nowInfo.date}일 (${nowInfo.week})`}</th>
-          <th>{`${tommorowInfo.month}월 ${tommorowInfo.date}일 (${tommorowInfo.week})`}</th>
+          <th>{`${tomorrowInfo.month}월 ${tomorrowInfo.date}일 (${tomorrowInfo.week})`}</th>
           <th>{`${futureInfo.month}월 ${futureInfo.date}일 (${futureInfo.week})`}</th>
         </tr>
-        <tr>
-          <td className="time">10:00 ~ 12:00</td>
-          <td>{`${charges.nowCharges[0]}`}</td>
-          <td>0,000원</td>
-          <td>0,000원</td>
-        </tr>
-        <tr>
-          <td className="time">12:00 ~ 16:00</td>
-          <td>0,000원</td>
-          <td>0,000원</td>
-          <td>0,000원</td>
-        </tr>
-        <tr>
-          <td className="time">15:00 ~ 19:00</td>
-          <td>0,000원</td>
-          <td>0,000원</td>
-          <td>0,000원</td>
-        </tr>
-        <tr>
-          <td className="time">16:00 ~ 20:00</td>
-          <td>0,000원</td>
-          <td>0,000원</td>
-          <td>0,000원</td>
-        </tr>
-        <tr>
-          <td className="time">18:00 ~ 21:00</td>
-          <td>0,000원</td>
-          <td>0,000원</td>
-          <td>0,000원</td>
-        </tr>
-        <tr>
-          <td className="time">21:00 ~ 23:59</td>
-          <td>0,000원</td>
-          <td>0,000원</td>
-          <td>0,000원</td>
-        </tr>
-        <tr>
-          <td className="time">추천</td>
-          <td>0,000원</td>
-          <td>0,000원</td>
-          <td>0,000원</td>
-        </tr>
       </table>
+      <button 
+        onClick={() => SetBtnSum(true)}
+        // disabled={check}
+      >
+        최종 금액 확인하기
+      </button>
+      {
+        btnSum ? (
+          <Summary result={resultInfo} type="individual"/>
+        ) : (
+          null
+        )
+      }
     </div>
   );
 }

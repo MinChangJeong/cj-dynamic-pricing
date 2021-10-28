@@ -1,9 +1,9 @@
 import "./ComputeIndi.css"
 import React, {useState, useEffect} from 'react';
-import Table from '../table/Table.js'
 
 import icon from '../img/icon1.png'
 
+import Table from '../table/Table.js'
 import Summary from "./Summary.js"
 import SearchBar from "../search/SearchBar";
 import locationData from '../data/location.json'
@@ -53,7 +53,8 @@ function ComputeIndi() {
   const [fExpress, setFExpress] = useState(false);
   const [bExpress, setBExpress] = useState(false);
 
-  const [btnSum, setBtnSum] = useState('disabled');
+  const [check, setCheck] = useState('disabled');
+  const [btnSum, setBtnSum] = useState(false);
 
   // 받는 사람 주소(권역) ---------------------------------------------
   const [location, setLocation] = useState({
@@ -96,7 +97,8 @@ function ComputeIndi() {
   // server 호출---------------------------------------------
 
   const handleSubmit = () => {
-  
+    setBtnSum(true)
+    
     const inputRequest = {
       location : location.value, 
       price : price.value, 
@@ -122,7 +124,7 @@ function ComputeIndi() {
 
   useEffect(() => {
     if (location.validateStatus & price.validateStatus) {
-      setBtnSum(null);
+      setCheck(null);
     }
 
   }, [location.validateStatus, price.validateStatus])
@@ -228,13 +230,13 @@ function ComputeIndi() {
       <button 
         className="price-title"
         onClick={handleSubmit} 
-        disabled={btnSum}
+        disabled={check}
       >
-        최종 배송비 확인
+        최적의 배송비 리스트 확인하기
       </button>
       {
-        btnSum == null ? (
-          <Summary result={resultInfo}/>
+        btnSum ? (
+          <Table result={resultInfo} />
         ) : null
       }
     </div>

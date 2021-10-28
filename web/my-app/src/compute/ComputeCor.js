@@ -280,7 +280,7 @@ function ComputeCor() {
       </button>
       {
         btnSum == null ? (
-          <Summary result={resultInfo}/>
+          <Summary result={resultInfo} type="corporate"/>
         ) : null
       }
     </div>
