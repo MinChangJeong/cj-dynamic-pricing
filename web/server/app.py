@@ -5,18 +5,17 @@ from flask_restful import Api, Resource, reqparse
 from flask_cors import CORS  # comment this on deployment
 from API import API
 import pickle
-# import numpy as np
+import numpy as np
 import redis
 from datetime import datetime, timedelta
 from threading import Thread
 import time
 import json
-from time_update_module import time_update_thread
+# from time_update_module import time_update_thread
 from model_ import inverse_trans, set_fee
-# from silence_tensorflow import silence_tensorflow
-# silence_tensorflow()
-
-# np.seterr(all="ignore")
+from silence_tensorflow import silence_tensorflow
+silence_tensorflow()
+np.seterr(all="ignore")
 
 rd = redis.StrictRedis(host="localhost", port=6379, db=1)
 
@@ -33,40 +32,17 @@ with open("./model/set_fee_mode.pickle", 'rb') as p:
     TRAIN_MODEL = pickle.load(p)
 
 
-# @app.route("/", defaults={'path': ''})
-# def serve(path):
-
-    # return send_from_directory(app.static_folder, 'index.html')
-
-
 @app.route("/calc/", methods=['GET', 'POST'])
 def calc():
     # data to dict
     req_data_dict = json.loads(request.data.decode("utf-8"))
-    set_fee(req_data_dict)
+    distance_weight, time_weight, category_weight, option_weight, fee_ = set_fee(req_data_dict)
 
     return {
-        "txt": "it's okay"
+        "distance_weight": distance_weight,
+        "time_weight" : time_weight,
+        "category_weight" : category_weight,
+        "option_weight" : option_weight,
+        "fee" : fee_
     }
-    predict_data = inverse_trans()
-    # d = int(request.args.get("hour", None))
-    # rd.incr(d)
-
-    # a = int(request.args.get("one", None))
-    # b = int(request.args.get("two", None))
-    # c = int(request.args.get("three", None))
-
-    # result = TRAIN_MODEL.predict(np.array([[a, b, c]]))
-
-    # return {
-    #     "result" : result[0],
-    #     "txt" : "okay"
-    # }
-
-# api.add_resource(RUN_MODEL, '/calc')
-# @app.route("/")
-# def index():
-
-#     return {
-#         "task" : "Thread"
-#     }
+    # predict_data = inverse_trans()
