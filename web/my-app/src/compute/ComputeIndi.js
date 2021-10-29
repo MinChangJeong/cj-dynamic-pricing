@@ -93,7 +93,7 @@ function ComputeIndi() {
     });
   }
 
-  const [resultInfo, SetResultInfo] = useState(null);
+  const [resultInfo, SetResultInfo] = useState([]);
   
   // server 호출---------------------------------------------
 
@@ -107,16 +107,10 @@ function ComputeIndi() {
       price : price.value, 
       option : [nExpress, fExpress, bExpress]
     }
-  
-    console.log(inputRequest)
-
-
 
     axios.post('http://localhost:5000/calc/', inputRequest)
       .then(response => {
-        console.log(response)
-        // response 받고 이후에 보여주는거 하면됨
-        // summmary 에 결과값 전달 후 display
+        SetResultInfo(response.data)
       })
       .catch(error => {
         console.log(error)
