@@ -5,6 +5,19 @@ import Summary from "../compute/Summary";
 
 function Table({result}) {
 
+  const [resultInfo, setResultInfo] = useState([])
+  useEffect(() => {
+    console.log(result)
+    setResultInfo(result)
+  }, [])
+  // table data
+  const [predicts, setPredicts] = useState([])
+
+  useEffect(() => {
+    console.log(resultInfo)
+    // setPredicts(result["predict"])
+  }, [resultInfo])
+
   const [now, setNow] = useState(new Date());
   const [nowInfo, setNowInfo] = useState(
     {
@@ -82,13 +95,14 @@ function Table({result}) {
   const [tomCosts, setTomCosts] = useState(null);
   const [futureCosts, setFutureCosts] = useState(null);
 
+
   const [tbresultInfo, setTbResultInfo] = useState(result);
+
 
   // const tb_setResultInfo = (resultInfo) => {
 
   // }
   // table에 들어갈 fee
-  // const [predicts, setPredicts] = useState(result["predict"])
 
   var times =["0~2", "2~4", "4~6", "6~8", "8~10", "10~12", "12~14", "14~16", "16~18", "18~20", "20~22", "22~23:59" ]
 
@@ -134,12 +148,16 @@ function Table({result}) {
     idx += 2
   })
 
-  const sample = {'1_6' : 3000, '3_6' : 2000}
+  Object.entries(predicts).map((data) => {
+    console.log(data)
+  })
+
 
 
   // Object.entries(sample).map((data) => {
   //   var key = data[0];
   //   var values = data[1];
+
 
   // })
 
