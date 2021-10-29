@@ -68,6 +68,10 @@ def calc():
             if flag == True:
                 result_dict[str(i) + "_" + str(j)] = int(( (predict_value[count] + predict_value[count+1]) / 2 )) - (int(( (predict_value[count] + predict_value[count+1]) / 2 )) % 10)                 
                 count = count + 2
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1c9105c2bdf2a5e1c9f3481b640dd0da4f481d60
 
     predict_result_set = predict_result[:-is_start]
 

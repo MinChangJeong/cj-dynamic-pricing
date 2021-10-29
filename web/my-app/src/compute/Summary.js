@@ -3,16 +3,9 @@ import "./Summary.css"
 
 import  {useState, useEffect} from 'react'
 
-function Summary({result,type}) {
-    const [resultInfo, setResultInfo] = useState([])
-    
-    useEffect(() => {
-        setResultInfo(result)
-    }, [])
+function Summary({result,type, minFee}) {
 
-    useEffect(() => {
-        console.log(resultInfo)
-    }, [resultInfo])
+    console.log(result)
     // result 기업---------------------------------
     // 주문 시간: 시간
     // 주고 받는 거리 : 거리
@@ -59,55 +52,59 @@ function Summary({result,type}) {
 
     const [totalFee, setTotalFee] = useState(null);
 
+
+
     useEffect(() => {
         if(type == "corporate") {
             setOrderTime({
                 ...orderTime,
-                time : resultInfo["time"],
-                fee : resultInfo["time_weight"]
+                time : result["time"],
+                fee : result["time_weight"]
             })
             setDistance({
                 ...distance,
-                t_distance : resultInfo["distance"],
-                fee : resultInfo["distance_weight"]
+                t_distance : result["distance"],
+                fee : result["distance_weight"]
             })
             setOption({
                 ...option,
-                name : resultInfo["storage"],
-                fee : resultInfo["category_weight"]
+                name : result["storage"],
+                fee : result["category_weight"]
             })
             setDiscount({
                 ...discount,
-                quantity : resultInfo["quantity"],
-                benefits : resultInfo["discount_weight"]
+                quantity : result["quantity"],
+                benefits : result["discount_weight"]
             })
-            setTotalFee(resultInfo["fee"])
+            setTotalFee(result["fee"])
         }
         // 개인
         else if(type == "individual") {
             setOrderTime({
                 ...orderTime,
-                time : resultInfo["time"],
-                fee : resultInfo["time_weight"]
+                time : result["time"],
+                fee : result["time_weight"]
             });
             setDistance({
                 ...distance,
-                t_distance : resultInfo["distance"],
-                fee : resultInfo["distance_weight"]
+                t_distance : result["distance"],
+                fee : result["distance_weight"]
             });
             setOption({
                 ...option,
-                name : resultInfo["delivery"],
-                fee : resultInfo["option_weight"]
+                name : result["delivery"],
+                fee : result["option_weight"]
             });
             setOrderPrice({
                 ...orderPrice,
-                price : resultInfo["price"],
-                fee : resultInfo["price_weight"]
+                price : result["price"],
+                fee : result["price_weight"]
             })
-            setTotalFee(resultInfo["fee_"])
+            setTotalFee(result["fee_"])
+
+            
         };
-    }, [resultInfo])
+    }, [result])
 
 
     return (
@@ -133,6 +130,7 @@ function Summary({result,type}) {
                                 <div className="space">+{distance.fee}원</div>
                                 <div className="space">+{option.fee}원</div>
                                 <div className="space">-{discount.benefits}원</div>
+                                
                             </div>
                         </div>
                         <hr />
@@ -149,18 +147,21 @@ function Summary({result,type}) {
                                 <div className="space">주고 받는 거리</div>
                                 <div className="space">주문 금액</div>
                                 <div className="space">배송 옵션</div>
+                                <div className="space">할인 혜택</div>
                             </div>
                             <div class="detail2">
                                 <div className="space">{orderTime.time}</div>
                                 <div className="space">{distance.t_distance}</div>
                                 <div className="space">{orderPrice.price}</div>
                                 <div className="space">{option.name}</div>
+                                <div className="space">선택한 날짜에 대한 할인 금액</div>
                             </div>
                             <div className="detail3">
                                 <div className="space">+{orderPrice.fee}원</div>
                                 <div className="space">+{distance.fee}원</div>
                                 <div className="space">+{orderPrice.fee}원</div>
                                 <div className="space">+{option.fee}원</div>
+                                <div className="space">{minFee}원</div>
                             </div>
                         </div>
                         <hr />

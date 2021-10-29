@@ -4,19 +4,7 @@ import React, {useState, useEffect} from 'react';
 import Summary from "../compute/Summary";
 
 function Table({result}) {
-
-  const [resultInfo, setResultInfo] = useState([])
-  useEffect(() => {
-    console.log(result)
-    setResultInfo(result)
-  }, [])
-  // table data
-  const [predicts, setPredicts] = useState([])
-
-  useEffect(() => {
-    console.log(resultInfo)
-    // setPredicts(result["predict"])
-  }, [resultInfo])
+  console.log(result)
 
   const [now, setNow] = useState(new Date());
   const [nowInfo, setNowInfo] = useState(
@@ -88,30 +76,11 @@ function Table({result}) {
 
   // table set -----------------------------------------------------------------------
 
-  // ex)10/19 10~13 배송비용 대한 state값이 있어야 함 (row : 7, column : 3 )
-
-
-  const [nowCosts, setNowCosts] = useState(null);
-  const [tomCosts, setTomCosts] = useState(null);
-  const [futureCosts, setFutureCosts] = useState(null);
-
-
-  const [tbresultInfo, setTbResultInfo] = useState(result);
-
-
-  // const tb_setResultInfo = (resultInfo) => {
-
-  // }
-  // table에 들어갈 fee
-
-  var times =["0~2", "2~4", "4~6", "6~8", "8~10", "10~12", "12~14", "14~16", "16~18", "18~20", "20~22", "22~23:59" ]
+  const [check, setCheck] = useState('disabled')
+  const [btnSum, SetBtnSum] = useState(false);
 
   var tdPreview = []
-
-  // 선택된 데이터
   const [chooseFee, setChooseFee] = useState(null);
-
-  
 
   const selectTd = (id) => {
     for(var i=0; i<=22; ) {
@@ -119,20 +88,21 @@ function Table({result}) {
       document.getElementById(`2_${i}`).style.color="black"
       document.getElementById(`3_${i}`).style.color="black"
 
-      document.getElementById(`1_${i}`).innerText = result[`1_${i}`] ? result[`1_${i}`] : NaN
-      document.getElementById(`2_${i}`).innerText =result[`2_${i}`]
-      document.getElementById(`3_${i}`).innerText =result[`3_${i}`]
 
-      i+=2;  
+      document.getElementById(`1_${i}`).innerText = result['predict'][`1_${i}`] ? result['predict'][`1_${i}`] : "예약 불가"
+      document.getElementById(`2_${i}`).innerText =result['predict'][`2_${i}`]
+      document.getElementById(`3_${i}`).innerText =result['predict'][`3_${i}`]
+
+      i+=2;
     }
-    // console.log(tb_resultInfo)
+    
     document.getElementById(id).style.color="red";
     console.log(id)
 
-    
-    // setChooseFee(document.getElementById(id))
+    setChooseFee(document.getElementById(id).innerText)
   }
 
+  var times =["0~2", "2~4", "4~6", "6~8", "8~10", "10~12", "12~14", "14~16", "16~18", "18~20", "20~22", "22~23:59" ]
 
   var idx = 0;
 
@@ -148,25 +118,9 @@ function Table({result}) {
     idx += 2
   })
 
-  Object.entries(predicts).map((data) => {
-    console.log(data)
-  })
-
-
-
-  // Object.entries(sample).map((data) => {
-  //   var key = data[0];
-  //   var values = data[1];
-
-
-  // })
-
-  
-
   // -----------------------------------------------------------
   
-  const [check, setCheck] = useState('disabled')
-  const [btnSum, SetBtnSum] = useState(false);
+  console.log(chooseFee)
 
   return (
     <div className="table">
@@ -181,13 +135,12 @@ function Table({result}) {
       </table> 
       <button 
         onClick={() => SetBtnSum(true)}
-        // disabled={check}
       >
         최종 금액 확인하기
       </button>
       {
         btnSum ? (
-          <Summary result={btnSum} type="individual"/>
+          <Summary result={result} type="individual" minFee={chooseFee} />
         ) : (
           null
         )

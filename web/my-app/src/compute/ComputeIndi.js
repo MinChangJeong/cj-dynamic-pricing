@@ -4,7 +4,6 @@ import React, {useState, useEffect} from 'react';
 import icon from '../img/icon1.png'
 
 import Table from '../table/Table.js'
-import Summary from "./Summary.js"
 import SearchBar from "../search/SearchBar";
 import locationData from '../data/location.json'
 import TrieSearch from 'trie-search';
@@ -57,6 +56,7 @@ function ComputeIndi() {
   const [check, setCheck] = useState('disabled');
   const [btnSum, setBtnSum] = useState(false);
 
+
   // 받는 사람 주소(권역) ---------------------------------------------
   const [location, setLocation] = useState({
     value : "",
@@ -95,7 +95,6 @@ function ComputeIndi() {
 
 
   const [resultInfo, SetResultInfo] = useState({});
-
   
   // server 호출---------------------------------------------
 
@@ -112,16 +111,17 @@ function ComputeIndi() {
 
     axios.post('http://localhost:5000/calc/', inputRequest)
       .then(response => {
-
         SetResultInfo(response.data)
-
-
       })
       .catch(error => {
         console.log(error)
       })
   
   }
+
+  useEffect(() => {
+    console.log(resultInfo)
+  }, [resultInfo])
 
   // ---------------------------------------------
 
@@ -138,11 +138,6 @@ function ComputeIndi() {
           
         <div className="sub">
           <span className="title">받으시는 분 배송 권역</span>
-          {/* <img 
-            className="icon" 
-            src={icon} 
-            onClick={() => setCostInfo(!costInfo)}
-          /> */}
           <input
             name="search-bar" 
             type="text"
@@ -166,6 +161,11 @@ function ComputeIndi() {
             }
         <div className="sub">
           <span className="title">상품 금액</span>
+          <img 
+            className="icon" 
+            src={icon} 
+            onClick={() => setCostInfo(!costInfo)}
+          />
           <input 
             type="text" 
             placeholder=""
@@ -212,9 +212,6 @@ function ComputeIndi() {
             <span className="alert">받으시는 분 주소가 수도권일 경우만 가능합니다.</span>
           ) : null
         } 
-        {
-          // table 이 나오는 순서를 확실히 해야할 필요가 있음
-        }
       </div>
       {
         costInfo ?  (
@@ -233,7 +230,7 @@ function ComputeIndi() {
       <button 
         className="price-title"
         onClick={handleSubmit} 
-        disabled={check}
+        // disabled={check}
       >
         최적의 배송비 리스트 확인하기
       </button>
