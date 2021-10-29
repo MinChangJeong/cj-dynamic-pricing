@@ -4,15 +4,8 @@ import "./Summary.css"
 import  {useState, useEffect} from 'react'
 
 function Summary({result,type, minFee}) {
-    const [resultInfo, setResultInfo] = useState([])
-    
-    useEffect(() => {
-        setResultInfo(result)
-    }, [])
 
-    useEffect(() => {
-        console.log(resultInfo)
-    }, [resultInfo])
+    console.log(result)
     // result 기업---------------------------------
     // 주문 시간: 시간
     // 주고 받는 거리 : 거리
@@ -65,53 +58,53 @@ function Summary({result,type, minFee}) {
         if(type == "corporate") {
             setOrderTime({
                 ...orderTime,
-                time : resultInfo["time"],
-                fee : resultInfo["time_weight"]
+                time : result["time"],
+                fee : result["time_weight"]
             })
             setDistance({
                 ...distance,
-                t_distance : resultInfo["distance"],
-                fee : resultInfo["distance_weight"]
+                t_distance : result["distance"],
+                fee : result["distance_weight"]
             })
             setOption({
                 ...option,
-                name : resultInfo["storage"],
-                fee : resultInfo["category_weight"]
+                name : result["storage"],
+                fee : result["category_weight"]
             })
             setDiscount({
                 ...discount,
-                quantity : resultInfo["quantity"],
-                benefits : resultInfo["discount_weight"]
+                quantity : result["quantity"],
+                benefits : result["discount_weight"]
             })
-            setTotalFee(resultInfo["fee"])
+            setTotalFee(result["fee"])
         }
         // 개인
         else if(type == "individual") {
             setOrderTime({
                 ...orderTime,
-                time : resultInfo["time"],
-                fee : resultInfo["time_weight"]
+                time : result["time"],
+                fee : result["time_weight"]
             });
             setDistance({
                 ...distance,
-                t_distance : resultInfo["distance"],
-                fee : resultInfo["distance_weight"]
+                t_distance : result["distance"],
+                fee : result["distance_weight"]
             });
             setOption({
                 ...option,
-                name : resultInfo["delivery"],
-                fee : resultInfo["option_weight"]
+                name : result["delivery"],
+                fee : result["option_weight"]
             });
             setOrderPrice({
                 ...orderPrice,
-                price : resultInfo["price"],
-                fee : resultInfo["price_weight"]
+                price : result["price"],
+                fee : result["price_weight"]
             })
-            setTotalFee(resultInfo["fee_"])
+            setTotalFee(result["fee_"])
 
             
         };
-    }, [resultInfo])
+    }, [result])
 
 
     return (

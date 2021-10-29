@@ -99,7 +99,7 @@ function ComputeCor() {
   
   // 입력값 전송(기업)---------------------------------------------
 
-  const [resultInfo, SetResultInfo] = useState(null);
+  const [resultInfo, setResultInfo] = useState([]);
 
   // 보내는 사람 권역주소, 받는 사람 권역 주소, 상품옵션, 월출고량, 카테고리
   // sendLocation, getLocation, [nExpress || fExpress]중 true값, 월 출고량
@@ -127,11 +127,11 @@ function ComputeCor() {
     
     axios.post('http://localhost:5000/calc/', inputRequest)
       .then(response => {
-        SetResultInfo(response.data);
+        console.log(response.data)
+        setResultInfo(response.data);
       })
       .catch(error => {
         console.log(error)
-        console.log("error")
       })
   
   }
