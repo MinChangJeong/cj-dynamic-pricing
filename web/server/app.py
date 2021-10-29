@@ -40,10 +40,14 @@ def calc():
     predict_value = []
     for i in range(len(predict_result)):
         if predict_result[i][0] < s_data:
-            append_data = -300 + (300 * (predict_result[i][0] - predict_result.min() ) / ( s_data- predict_result.min()) )
+            append_data = -300 + \
+                (300 * (predict_result[i][0] - predict_result.min()
+                        ) / (s_data - predict_result.min()))
             predict_value.append(append_data)
         else:
-            append_data = 300 - (300 * ( predict_result.max() - predict_result[i][0] ) / ( predict_result.max() -  s_data) )            
+            append_data = 300 - \
+                (300 * (predict_result.max() -
+                 predict_result[i][0]) / (predict_result.max() - s_data))
             predict_value.append(append_data)
 
     print(predict_result)
@@ -53,10 +57,10 @@ def calc():
 
     result_dict = {}
     flag = False
-    
+
     for i in range(1, 4):
         for j in range(0, 24, 2):
-            if (i == 1) and ( (req_data_dict["time"] >= j) and (req_data_dict["time"] < j+2 )):
+            if (i == 1) and ((req_data_dict["time"] >= j) and (req_data_dict["time"] < j+2)):
                 flag = True
                 if j % 2 == 0:
                     is_start = j + 2
@@ -66,49 +70,47 @@ def calc():
                     count = 0
                 continue
             if flag == True:
-                result_dict[str(i) + "_" + str(j)] = int(( (predict_value[count] + predict_value[count+1]) / 2 )) - (int(( (predict_value[count] + predict_value[count+1]) / 2 )) % 10)                 
+                result_dict[str(i) + "_" + str(j)] = int(((predict_value[count] + predict_value[count+1]) / 2)) - (
+                    int(((predict_value[count] + predict_value[count+1]) / 2)) % 10)
                 count = count + 2
-<<<<<<< HEAD
-
-=======
->>>>>>> 1c9105c2bdf2a5e1c9f3481b640dd0da4f481d60
 
     predict_result_set = predict_result[:-is_start]
-
 
     print(result_dict)
 
     if req_data_dict["btnType"] == "btnCor":
-        distance_weight, time_weight, discount_weight, category_weight, fee_ , time, distance, storage, quantity= set_fee(req_data_dict)
+        distance_weight, time_weight, discount_weight, category_weight, fee_, time, distance, storage, quantity = set_fee(
+            req_data_dict)
 
         storage = "상온" if storage == "F" else "냉장/냉동"
 
         return {
             "distance_weight": distance_weight,
-            "time_weight" : time_weight,
-            "discount_weight" : discount_weight,
-            "category_weight" : category_weight,
-            "fee" : fee_,
-            "time" : time,
-            "distance" : distance,
-            "storage" : storage,
-            "quantity" : quantity
+            "time_weight": time_weight,
+            "discount_weight": discount_weight,
+            "category_weight": category_weight,
+            "fee": fee_,
+            "time": time,
+            "distance": distance,
+            "storage": storage,
+            "quantity": quantity
         }
     elif req_data_dict["btnType"] == "btnIndi":
-        distance_weight, time_weight, discount_weight, option_weight, price_weight, distance, time, quantity, fee_, price, delivery = set_fee(req_data_dict)
+        distance_weight, time_weight, discount_weight, option_weight, price_weight, distance, time, quantity, fee_, price, delivery = set_fee(
+            req_data_dict)
 
         return {
             "distance_weight": distance_weight,
-            "time_weight" : time_weight,
-            "discount_weight" : discount_weight,
-            "option_weight" : option_weight,
-            "price_weight" : price_weight,
-            "distance" : distance,
-            "time" : time,
-            "quantity" : quantity,
-            "fee_" : fee_,
-            "price" : price,
-            "delivery" : delivery,    
-            "predict" : result_dict      
+            "time_weight": time_weight,
+            "discount_weight": discount_weight,
+            "option_weight": option_weight,
+            "price_weight": price_weight,
+            "distance": distance,
+            "time": time,
+            "quantity": quantity,
+            "fee_": fee_,
+            "price": price,
+            "delivery": delivery,
+            "predict": result_dict
         }
     # predict_data = inverse_trans()
