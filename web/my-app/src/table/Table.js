@@ -76,12 +76,11 @@ function Table({result}) {
 
   // table set -----------------------------------------------------------------------
 
-  const [chooseFee, setChooseFee] = useState(null);
   const [check, setCheck] = useState('disabled')
   const [btnSum, SetBtnSum] = useState(false);
 
-
   var tdPreview = []
+  const [chooseFee, setChooseFee] = useState(null);
 
   const selectTd = (id) => {
     for(var i=0; i<=22; ) {
@@ -89,33 +88,35 @@ function Table({result}) {
       document.getElementById(`2_${i}`).style.color="black"
       document.getElementById(`3_${i}`).style.color="black"
 
+
       document.getElementById(`1_${i}`).innerText = result['predict'][`1_${i}`] ? result['predict'][`1_${i}`] : "예약 불가"
       document.getElementById(`2_${i}`).innerText =result['predict'][`2_${i}`]
       document.getElementById(`3_${i}`).innerText =result['predict'][`3_${i}`]
 
       i+=2;
     }
-
+    
     document.getElementById(id).style.color="red";
     console.log(id)
 
     setChooseFee(document.getElementById(id).innerText)
   }
-    var times =["0~2", "2~4", "4~6", "6~8", "8~10", "10~12", "12~14", "14~16", "16~18", "18~20", "20~22", "22~23:59" ]
-  
-    var idx = 0;
-  
-    times.forEach((time) => {
-      tdPreview.push(
-        <tr>
-          <td>{time}</td>
-          <td id={`1_${idx}`} onClick={(e) => selectTd(e.target.id) } >data</td>
-          <td id={`2_${idx}`} onClick={(e) => selectTd(e.target.id)} >data</td>
-          <td id={`3_${idx}`} onClick={(e) => selectTd(e.target.id)} >data</td>
-        </tr>
-      )
-      idx += 2
-    })
+
+  var times =["0~2", "2~4", "4~6", "6~8", "8~10", "10~12", "12~14", "14~16", "16~18", "18~20", "20~22", "22~23:59" ]
+
+  var idx = 0;
+
+  times.forEach((time) => {
+    tdPreview.push(
+      <tr>
+        <td>{time}</td>
+        <td id={`1_${idx}`} onClick={(e) => selectTd(e.target.id) } >click</td>
+        <td id={`2_${idx}`} onClick={(e) => selectTd(e.target.id)} >click</td>
+        <td id={`3_${idx}`} onClick={(e) => selectTd(e.target.id)} >click</td>
+      </tr>
+    )
+    idx += 2
+  })
 
   // -----------------------------------------------------------
   

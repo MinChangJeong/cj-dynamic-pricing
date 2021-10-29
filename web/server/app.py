@@ -46,6 +46,8 @@ def calc():
             append_data = 300 - (300 * ( predict_result.max() - predict_result[i][0] ) / ( predict_result.max() -  s_data) )            
             predict_value.append(append_data)
 
+    print(predict_result)
+    print(predict_value)
     # data to dict
     req_data_dict = json.loads(request.data.decode("utf-8"))
 
@@ -66,9 +68,13 @@ def calc():
             if flag == True:
                 result_dict[str(i) + "_" + str(j)] = int(( (predict_value[count] + predict_value[count+1]) / 2 )) - (int(( (predict_value[count] + predict_value[count+1]) / 2 )) % 10)                 
                 count = count + 2
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1c9105c2bdf2a5e1c9f3481b640dd0da4f481d60
 
     predict_result_set = predict_result[:-is_start]
+
 
     print(result_dict)
 

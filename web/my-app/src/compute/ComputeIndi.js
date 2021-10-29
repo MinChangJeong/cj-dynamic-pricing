@@ -56,7 +56,6 @@ function ComputeIndi() {
   const [check, setCheck] = useState('disabled');
   const [btnSum, setBtnSum] = useState(false);
 
-  const [resultInfo, SetResultInfo] = useState(null);
 
   // 받는 사람 주소(권역) ---------------------------------------------
   const [location, setLocation] = useState({
@@ -95,6 +94,7 @@ function ComputeIndi() {
   }
 
 
+  const [resultInfo, SetResultInfo] = useState({});
   
   // server 호출---------------------------------------------
 
@@ -111,7 +111,6 @@ function ComputeIndi() {
 
     axios.post('http://localhost:5000/calc/', inputRequest)
       .then(response => {
-        console.log(response.data)
         SetResultInfo(response.data)
       })
       .catch(error => {
@@ -231,12 +230,12 @@ function ComputeIndi() {
       <button 
         className="price-title"
         onClick={handleSubmit} 
-        disabled={check}
+        // disabled={check}
       >
         최적의 배송비 리스트 확인하기
       </button>
       {
-        btnSum ? (
+        resultInfo["2_0"] ? (
           <Table result={resultInfo} />
         ) : null
       }
