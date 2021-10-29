@@ -40,15 +40,16 @@ def calc():
     predict_value = []
     for i in range(len(predict_result)):
         if predict_result[i][0] < s_data:
-            predict_value.append(300)
+            append_data = -300 + (300 * (predict_result[i][0] - predict_result.min() ) / ( s_data- predict_result.min()) )
+            predict_value.append(append_data)
         else:
-            predict_value.append(-300)
+            append_data = 300 - (300 * ( predict_result.max() - predict_result[i][0] ) / ( predict_result.max() -  s_data) )            
+            predict_value.append(append_data)
 
     # data to dict
     req_data_dict = json.loads(request.data.decode("utf-8"))
 
     result_dict = {}
-    count = 0
     flag = False
     
     for i in range(1, 4):
@@ -57,12 +58,15 @@ def calc():
                 flag = True
                 if j % 2 == 0:
                     is_start = j + 2
+                    count = 1
                 elif j % 2 == 1:
                     is_start = j + 1
+                    count = 0
                 continue
             if flag == True:
-                result_dict[str(i) + "_" + str(j)] = predict_value[count]
-                count = count + 1
+                result_dict[str(i) + "_" + str(j)] = int(( (predict_value[count] + predict_value[count+1]) / 2 )) - (int(( (predict_value[count] + predict_value[count+1]) / 2 )) % 10)                 
+                count = count + 2
+
 
     predict_result_set = predict_result[:-is_start]
 

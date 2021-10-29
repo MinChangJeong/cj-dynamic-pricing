@@ -130,7 +130,6 @@ function ComputeCor() {
         SetResultInfo(response.data);
       })
       .catch(error => {
-        // console.log(inputRequest)
         console.log(error)
         console.log("error")
       })
@@ -284,7 +283,7 @@ function ComputeCor() {
       </button>
       {
         btnSum ? (
-          <Summary result={resultInfo} type="corporate"/>
+          <Summary result={resultInfo} type="corporate" minFee={null} />
         ) : null
       }
     </div>
