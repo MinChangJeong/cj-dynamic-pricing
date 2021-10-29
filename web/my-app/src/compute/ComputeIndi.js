@@ -93,7 +93,9 @@ function ComputeIndi() {
     });
   }
 
-  const [resultInfo, SetResultInfo] = useState([]);
+
+  const [resultInfo, SetResultInfo] = useState({});
+
   
   // server 호출---------------------------------------------
 
@@ -110,7 +112,10 @@ function ComputeIndi() {
 
     axios.post('http://localhost:5000/calc/', inputRequest)
       .then(response => {
+
         SetResultInfo(response.data)
+
+
       })
       .catch(error => {
         console.log(error)
@@ -233,7 +238,7 @@ function ComputeIndi() {
         최적의 배송비 리스트 확인하기
       </button>
       {
-        btnSum ? (
+        resultInfo["2_0"] ? (
           <Table result={resultInfo} />
         ) : null
       }

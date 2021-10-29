@@ -95,8 +95,13 @@ function Table({result}) {
   const [tomCosts, setTomCosts] = useState(null);
   const [futureCosts, setFutureCosts] = useState(null);
 
-  // const [resultInfo, setResultInfo] = useState(result);
 
+  const [tbresultInfo, setTbResultInfo] = useState(result);
+
+
+  // const tb_setResultInfo = (resultInfo) => {
+
+  // }
   // table에 들어갈 fee
 
   var times =["0~2", "2~4", "4~6", "6~8", "8~10", "10~12", "12~14", "14~16", "16~18", "18~20", "20~22", "22~23:59" ]
@@ -106,17 +111,25 @@ function Table({result}) {
   // 선택된 데이터
   const [chooseFee, setChooseFee] = useState(null);
 
+  
+
   const selectTd = (id) => {
     for(var i=0; i<=22; ) {
       document.getElementById(`1_${i}`).style.color="black"
       document.getElementById(`2_${i}`).style.color="black"
       document.getElementById(`3_${i}`).style.color="black"
-      i+=2;
-    }
 
+      document.getElementById(`1_${i}`).innerText = result[`1_${i}`] ? result[`1_${i}`] : NaN
+      document.getElementById(`2_${i}`).innerText =result[`2_${i}`]
+      document.getElementById(`3_${i}`).innerText =result[`3_${i}`]
+
+      i+=2;  
+    }
+    // console.log(tb_resultInfo)
     document.getElementById(id).style.color="red";
     console.log(id)
 
+    
     // setChooseFee(document.getElementById(id))
   }
 
@@ -127,9 +140,9 @@ function Table({result}) {
     tdPreview.push(
       <tr>
         <td>{time}</td>
-        <td id={`1_${idx}`} onClick={(e) => selectTd(e.target.id) } >data</td>
-        <td id={`2_${idx}`} onClick={(e) => selectTd(e.target.id)} >data</td>
-        <td id={`3_${idx}`} onClick={(e) => selectTd(e.target.id)} >data</td>
+        <td id={`1_${idx}`} onClick={(e) => selectTd(e.target.id) } >click</td>
+        <td id={`2_${idx}`} onClick={(e) => selectTd(e.target.id)} >click</td>
+        <td id={`3_${idx}`} onClick={(e) => selectTd(e.target.id)} >click</td>
       </tr>
     )
     idx += 2
@@ -174,7 +187,7 @@ function Table({result}) {
       </button>
       {
         btnSum ? (
-          <Summary result={resultInfo} type="individual"/>
+          <Summary result={btnSum} type="individual"/>
         ) : (
           null
         )
