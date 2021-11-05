@@ -1,7 +1,7 @@
 from numpy import result_type
 import numpy as np
 from pandas.core.frame import DataFrame 
-import pickle
+from pickle5 import pickle
 import json
 from silence_tensorflow import silence_tensorflow
 from haversine import haversine
