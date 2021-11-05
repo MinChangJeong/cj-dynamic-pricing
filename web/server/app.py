@@ -4,7 +4,7 @@ from flask.wrappers import Response
 from flask_restful import Api, Resource, reqparse
 from flask_cors import CORS  # comment this on deployment
 from API import API
-import pickle
+from pickle5 import pickle
 import numpy as np
 import redis
 from datetime import datetime, timedelta
@@ -40,18 +40,20 @@ def calc():
     predict_value = []
     for i in range(len(predict_result)):
         if predict_result[i][0] < s_data:
-            append_data = -300 + \
-                (300 * (predict_result[i][0] - predict_result.min()
-                        ) / (s_data - predict_result.min()))
+            append_data = -300 + (300 * (predict_result[i][0] - predict_result.min() ) / ( s_data- predict_result.min()) )            
+            # append_data = -300 + \
+            #     (300 * (predict_result[i][0] - predict_result.min()
+            #             ) / (s_data - predict_result.min()))
             predict_value.append(append_data)
         else:
-            append_data = 300 - \
-                (300 * (predict_result.max() -
-                 predict_result[i][0]) / (predict_result.max() - s_data))
+            append_data = 300 - (300 * ( predict_result.max() - predict_result[i][0] ) / ( predict_result.max() -  s_data) )
+            # append_data = 300 - \
+            #     (300 * (predict_result.max() -
+            #      predict_result[i][0]) / (predict_result.max() - s_data))
             predict_value.append(append_data)
 
-    print(predict_result)
-    print(predict_value)
+    # print(predict_result)
+    # print(predict_value)
     # data to dict
     req_data_dict = json.loads(request.data.decode("utf-8"))
 
@@ -70,8 +72,9 @@ def calc():
                     count = 0
                 continue
             if flag == True:
-                result_dict[str(i) + "_" + str(j)] = int(((predict_value[count] + predict_value[count+1]) / 2)) - (
-                    int(((predict_value[count] + predict_value[count+1]) / 2)) % 10)
+                result_dict[str(i) + "_" + str(j)] = int(( (predict_value[count] + predict_value[count+1]) / 2 )) - (int(( (predict_value[count] + predict_value[count+1]) / 2 )) % 10)
+                # result_dict[str(i) + "_" + str(j)] = int(((predict_value[count] + predict_value[count+1]) / 2)) - (
+                #     int(((predict_value[count] + predict_value[count+1]) / 2)) % 10)
                 count = count + 2
 
     predict_result_set = predict_result[:-is_start]
@@ -79,38 +82,40 @@ def calc():
     print(result_dict)
 
     if req_data_dict["btnType"] == "btnCor":
-        distance_weight, time_weight, discount_weight, category_weight, fee_, time, distance, storage, quantity = set_fee(
-            req_data_dict)
+        distance_weight, time_weight, discount_weight, category_weight, fee_ , time, distance, storage, quantity= set_fee(req_data_dict)
+        # distance_weight, time_weight, discount_weight, category_weight, fee_, time, distance, storage, quantity = set_fee(
+        #     req_data_dict)
 
         storage = "상온" if storage == "F" else "냉장/냉동"
 
         return {
-            "distance_weight": distance_weight,
-            "time_weight": time_weight,
-            "discount_weight": discount_weight,
-            "category_weight": category_weight,
-            "fee": fee_,
-            "time": time,
-            "distance": distance,
-            "storage": storage,
-            "quantity": quantity
+            "distance_weight" : distance_weight,
+            "time_weight" : time_weight,
+            "discount_weight" : discount_weight,
+            "category_weight" : category_weight,
+            "fee" : fee_,
+            "time" : time,
+            "distance" : distance,
+            "storage" : storage,
+            "quantity" : quantity
         }
     elif req_data_dict["btnType"] == "btnIndi":
-        distance_weight, time_weight, discount_weight, option_weight, price_weight, distance, time, quantity, fee_, price, delivery = set_fee(
-            req_data_dict)
+        distance_weight, time_weight, discount_weight, option_weight, price_weight, distance, time, quantity, fee_, price, delivery = set_fee(req_data_dict)
+        # distance_weight, time_weight, discount_weight, option_weight, price_weight, distance, time, quantity, fee_, price, delivery = set_fee(
+        #     req_data_dict)
 
         return {
-            "distance_weight": distance_weight,
-            "time_weight": time_weight,
-            "discount_weight": discount_weight,
-            "option_weight": option_weight,
-            "price_weight": price_weight,
-            "distance": distance,
-            "time": time,
-            "quantity": quantity,
-            "fee_": fee_,
-            "price": price,
-            "delivery": delivery,
-            "predict": result_dict
+            "distance_weight" : distance_weight,
+            "time_weight" : time_weight,
+            "discount_weight" : discount_weight,
+            "option_weight" : option_weight,
+            "price_weight" : price_weight,
+            "distance" : distance,
+            "time" : time,
+            "quantity" : quantity,
+            "fee_" : fee_,
+            "price" : price,
+            "delivery" : delivery,
+            "predict" : result_dict
         }
     # predict_data = inverse_trans()

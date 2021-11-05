@@ -235,7 +235,7 @@ function ComputeIndi() {
         최적의 배송비 리스트 확인하기
       </button>
       {
-        resultInfo["2_0"] ? (
+        resultInfo ? (
           <Table result={resultInfo} />
         ) : null
       }
