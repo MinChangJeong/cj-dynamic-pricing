@@ -43,15 +43,21 @@ def calc():
             append_data = -300 + \
                 (300 * (predict_result[i][0] - predict_result.min()
                         ) / (s_data - predict_result.min()))
+            # append_data = -300 + \
+            #     (300 * (predict_result[i][0] - predict_result.min()
+            #             ) / (s_data - predict_result.min()))
             predict_value.append(append_data)
         else:
             append_data = 300 - \
                 (300 * (predict_result.max() -
                  predict_result[i][0]) / (predict_result.max() - s_data))
+            # append_data = 300 - \
+            #     (300 * (predict_result.max() -
+            #      predict_result[i][0]) / (predict_result.max() - s_data))
             predict_value.append(append_data)
 
-    print(predict_result)
-    print(predict_value)
+    # print(predict_result)
+    # print(predict_value)
     # data to dict
     req_data_dict = json.loads(request.data.decode("utf-8"))
 
@@ -72,6 +78,8 @@ def calc():
             if flag == True:
                 result_dict[str(i) + "_" + str(j)] = int(((predict_value[count] + predict_value[count+1]) / 2)) - (
                     int(((predict_value[count] + predict_value[count+1]) / 2)) % 10)
+                # result_dict[str(i) + "_" + str(j)] = int(((predict_value[count] + predict_value[count+1]) / 2)) - (
+                #     int(((predict_value[count] + predict_value[count+1]) / 2)) % 10)
                 count = count + 2
 
     predict_result_set = predict_result[:-is_start]
@@ -81,6 +89,8 @@ def calc():
     if req_data_dict["btnType"] == "btnCor":
         distance_weight, time_weight, discount_weight, category_weight, fee_, time, distance, storage, quantity = set_fee(
             req_data_dict)
+        # distance_weight, time_weight, discount_weight, category_weight, fee_, time, distance, storage, quantity = set_fee(
+        #     req_data_dict)
 
         storage = "상온" if storage == "F" else "냉장/냉동"
 
@@ -98,6 +108,8 @@ def calc():
     elif req_data_dict["btnType"] == "btnIndi":
         distance_weight, time_weight, discount_weight, option_weight, price_weight, distance, time, quantity, fee_, price, delivery = set_fee(
             req_data_dict)
+        # distance_weight, time_weight, discount_weight, option_weight, price_weight, distance, time, quantity, fee_, price, delivery = set_fee(
+        #     req_data_dict)
 
         return {
             "distance_weight": distance_weight,

@@ -1,6 +1,6 @@
 from numpy import result_type
 import numpy as np
-from pandas.core.frame import DataFrame 
+from pandas.core.frame import DataFrame
 import pickle
 import json
 from silence_tensorflow import silence_tensorflow
@@ -22,6 +22,7 @@ with open("./model/set_fee_mode.pickle", "rb") as m:
 with open("./data/category_count.json", "r") as cc:
     CATEGORY_COUNT = json.load(cc)
 
+
 def model_preprocessing(df, scaler):
     if str(type(df)) == "<class 'pandas.core.frame.DataFrame'>":
         data_np = np.array(df["품목수량"]).reshape(-1, 1)
@@ -34,9 +35,10 @@ def model_preprocessing(df, scaler):
 def model_run_and_forecast(model, data, PREDICT_TIME):
     data_rs = data.reshape(1, 12, 1)
     forecast_results = []
-    ## forecast
+    # forecast
     for i in range(PREDICT_TIME):
-        forecast_result = model.predict(data_rs.reshape(1, 12, 1), batch_size = 1)
+        forecast_result = model.predict(
+            data_rs.reshape(1, 12, 1), batch_size=1)
         forecast_results.append(forecast_result[0][0])
 
         data_rs = np.append(data_rs, [forecast_result])[1:]
@@ -49,7 +51,7 @@ def inverse_trans():
 
     with open("./result/predict_result.pickle", "rb") as f:
         predict = pickle.load(f)
-    
+
     with open("./model/scaler.pickle", "rb") as s:
         scaler = pickle.load(s)
 
@@ -65,7 +67,7 @@ def set_fee(req_data_dict):
         quantity = int(req_data_dict["quantity"])
         # category_count = CATEGORY_COUNT(CATEGORY[req_data_dict["category"]]) ## code_count(codeID)
 
-        storage = "I" if req_data_dict["category"] == "식품" else "F" 
+        storage = "I" if req_data_dict["category"] == "식품" else "F"
 
         sender = (send_location[0], send_location[1])
         receiver = (get_location[0], get_location[1])
@@ -80,10 +82,11 @@ def set_fee(req_data_dict):
         if storage == "I":
             category_weight = category_weight + 300
 
-
-        distance_weight = (fee_ - initial_fee ) * MODEL_FEE.feature_importances_[0]
+        distance_weight = (fee_ - initial_fee) * \
+            MODEL_FEE.feature_importances_[0]
         time_weight = (fee_ - initial_fee) * MODEL_FEE.feature_importances_[1]
-        discount_weight = (fee_ - initial_fee) * MODEL_FEE.feature_importances_[2]
+        discount_weight = (fee_ - initial_fee) * \
+            MODEL_FEE.feature_importances_[2]
 
         last_fee_ = fee_[0] + category_weight
 
@@ -95,12 +98,12 @@ def set_fee(req_data_dict):
 
         price = int(req_data_dict["price"])
         if req_data_dict["price"][0]:
-            option = "N" ## 새벽
+            option = "N"  # 새벽
         elif req_data_dict["price"][1]:
-            option = "F" ## 당일
+            option = "F"  # 당일
         elif req_data_dict["price"][2]:
-            option = "B" ## 일반
-         
+            option = "B"  # 일반
+
         sender = (37.384, 127.314)
 
         quantity = 1
@@ -114,25 +117,27 @@ def set_fee(req_data_dict):
         if option == "N":
             option_weight = 500
             delivery = "새벽배송"
-        elif option == "F": 
-            option_weight =  300
+        elif option == "F":
+            option_weight = 300
             delivery = "당일배송"
         else:
             option_weight = 0
-            delivery = "일반배송" 
+            delivery = "일반배송"
 
-        if (price >= 500000) and ( price < 1000000):
-            price_weight =  2000
-        elif (price >= 1000000) and ( price < 2000000):
-            price_weight =  4000
-        elif (price >= 2000000) and ( price < 3000000):
+        if (price >= 500000) and (price < 1000000):
+            price_weight = 2000
+        elif (price >= 1000000) and (price < 2000000):
+            price_weight = 4000
+        elif (price >= 2000000) and (price < 3000000):
             price_weight = 6000
         else:
             price_weight = 0
 
-        distance_weight = (fee_ - initial_fee ) * MODEL_FEE.feature_importances_[0]
+        distance_weight = (fee_ - initial_fee) * \
+            MODEL_FEE.feature_importances_[0]
         time_weight = (fee_ - initial_fee) * MODEL_FEE.feature_importances_[1]
-        discount_weight = (fee_ - initial_fee) * MODEL_FEE.feature_importances_[2]
+        discount_weight = (fee_ - initial_fee) * \
+            MODEL_FEE.feature_importances_[2]
 
         last_fee_ = fee_[0] + option_weight
         return int(distance_weight), int(time_weight), int(discount_weight), int(option_weight), int(price_weight), int(distance), int(time), int(quantity), int(last_fee_), int(price), delivery
@@ -142,6 +147,5 @@ def set_fee(req_data_dict):
     # receiver = ()
 
     # distance = haversine(sender, receiver)
-
 
     return "yes"

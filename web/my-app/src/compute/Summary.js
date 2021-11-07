@@ -55,6 +55,7 @@ function Summary({result,type, minFee}) {
 
 
     useEffect(() => {
+        //기업
         if(type == "corporate") {
             setOrderTime({
                 ...orderTime,
