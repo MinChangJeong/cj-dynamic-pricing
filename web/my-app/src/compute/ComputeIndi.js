@@ -115,8 +115,7 @@ function ComputeIndi() {
       })
       .catch(error => {
         console.log(error)
-      })
-  
+      })  
   }
 
   useEffect(() => {

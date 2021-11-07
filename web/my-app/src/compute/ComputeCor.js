@@ -133,7 +133,6 @@ function ComputeCor() {
       .catch(error => {
         console.log(error)
       })
-  
   }
 
   useEffect(() => {
