@@ -5,7 +5,6 @@ import  {useState, useEffect} from 'react'
 
 function Summary({result,type, minFee}) {
 
-    console.log(result)
     // result 기업---------------------------------
     // 주문 시간: 시간
     // 주고 받는 거리 : 거리
@@ -52,6 +51,7 @@ function Summary({result,type, minFee}) {
 
     const [totalFee, setTotalFee] = useState(null);
 
+    const [totalFee_indi, setTotalFee_Indi] = useState(null);
 
 
     useEffect(() => {
@@ -99,10 +99,11 @@ function Summary({result,type, minFee}) {
                 ...orderPrice,
                 price : result["price"],
                 fee : result["price_weight"]
-            })
-            setTotalFee(result["fee_"])
+            });
+            setTotalFee(result["fee_"]);
 
-            
+            const number_minfee = parseInt(minFee);
+            setTotalFee_Indi(result["fee_"] + number_minfee - result["discount_weight"]);            
         };
     }, [result])
 
@@ -126,7 +127,7 @@ function Summary({result,type, minFee}) {
                                 <div className="space">{discount.quantity}</div>
                             </div>
                             <div className="detail3">
-                                <div className="space">+{orderPrice.fee}원</div>
+                                <div className="space">+{orderTime.fee}원</div>
                                 <div className="space">+{distance.fee}원</div>
                                 <div className="space">+{option.fee}원</div>
                                 <div className="space">-{discount.benefits}원</div>
@@ -157,7 +158,7 @@ function Summary({result,type, minFee}) {
                                 <div className="space">선택한 날짜에 대한 할인 금액</div>
                             </div>
                             <div className="detail3">
-                                <div className="space">+{orderPrice.fee}원</div>
+                                <div className="space">+{orderTime.fee}원</div>
                                 <div className="space">+{distance.fee}원</div>
                                 <div className="space">+{orderPrice.fee}원</div>
                                 <div className="space">+{option.fee}원</div>
@@ -167,7 +168,7 @@ function Summary({result,type, minFee}) {
                         <hr />
                         <div className="all-price">
                             <div>총 합계</div>
-                            <div>{totalFee}원</div>
+                            <div>{totalFee_indi}원</div>
                         </div>
                     </div>
                 )
