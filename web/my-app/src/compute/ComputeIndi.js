@@ -99,7 +99,8 @@ function ComputeIndi() {
   // server 호출---------------------------------------------
 
   const handleSubmit = () => {
-    setBtnSum(true)
+    
+    setBtnSum(!btnSum)
    
     const inputRequest = {
       time : new Date().getHours(),
@@ -234,7 +235,7 @@ function ComputeIndi() {
         최적의 배송비 리스트 확인하기
       </button>
       {
-        resultInfo ? (
+        btnSum ? (
           <Table result={resultInfo} />
         ) : null
       }

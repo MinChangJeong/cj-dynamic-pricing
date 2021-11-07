@@ -32,30 +32,28 @@ thread.start()
 with open("./model/set_fee_mode.pickle", 'rb') as p:
     TRAIN_MODEL = pickle.load(p)
 
+@app.route("/")
+def test():
+    return {"test" : "test"}
 
 @app.route("/calc/", methods=['GET', 'POST'])
 def calc():
     predict_result, s_data = inverse_trans()
 
+    req_data_dict = json.loads(request.data.decode("utf-8"))
+    print(req_data_dict)
+
     predict_value = []
     for i in range(len(predict_result)):
         if predict_result[i][0] < s_data:
             append_data = -300 + (300 * (predict_result[i][0] - predict_result.min() ) / ( s_data- predict_result.min()) )            
-            # append_data = -300 + \
-            #     (300 * (predict_result[i][0] - predict_result.min()
-            #             ) / (s_data - predict_result.min()))
             predict_value.append(append_data)
         else:
             append_data = 300 - (300 * ( predict_result.max() - predict_result[i][0] ) / ( predict_result.max() -  s_data) )
-            # append_data = 300 - \
-            #     (300 * (predict_result.max() -
-            #      predict_result[i][0]) / (predict_result.max() - s_data))
             predict_value.append(append_data)
 
-    # print(predict_result)
-    # print(predict_value)
-    # data to dict
     req_data_dict = json.loads(request.data.decode("utf-8"))
+    print(req_data_dict)
 
     result_dict = {}
     flag = False

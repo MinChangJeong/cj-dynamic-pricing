@@ -6,7 +6,7 @@ import time
 import pickle
 import threading
 from model_ import model_run_and_forecast, model_preprocessing
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 from sklearn.base import clone
 from silence_tensorflow import silence_tensorflow
 silence_tensorflow()
