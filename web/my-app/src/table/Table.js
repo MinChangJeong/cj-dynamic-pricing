@@ -31,6 +31,7 @@ function Table({result}) {
       month : future.getMonth()+1,
       date : future.getDate(),
       week : future.getDay(),
+      
     }
   )
 
@@ -84,7 +85,7 @@ function Table({result}) {
   const [chooseFee, setChooseFee] = useState(null);
 
   const selectTd = (id) => {
-    try {
+    if (result["delivery"] === "일반배송") {
       for(var i=0; i<=22; ) {
         document.getElementById(`1_${i}`).style.color="black"
         document.getElementById(`2_${i}`).style.color="black"
@@ -103,7 +104,7 @@ function Table({result}) {
   
       setChooseFee(document.getElementById(id).innerText)
 
-    } catch (error) {
+    } else if (result["delivery"] === "새벽배송") {
         document.getElementById(`td_now`).style.color="black"
         document.getElementById(`td_tommorow`).style.color="black"
         document.getElementById(`td_future`).style.color="black"
@@ -113,7 +114,24 @@ function Table({result}) {
         setChooseFee(document.getElementById(id).className)    
         // setChooseFee(validate_now)    
  
+    } else if (result["delivery"] === "당일배송") {
+      for(var z=0; z<7; z++) {
+        document.getElementById(`1_${z*2}`).style.color="black"
+        document.getElementById(`2_${z*2}`).style.color="black"
+        document.getElementById(`3_${z*2}`).style.color="black"
+
+
+        document.getElementById(`1_${z*2}`).innerText = result['predict'][`1_${z*2}`] ? result['predict'][`1_${z*2}`] : "예약 불가"
+        document.getElementById(`2_${z*2}`).innerText =result['predict'][`2_${z*2}`]
+        document.getElementById(`3_${z*2}`).innerText =result['predict'][`3_${z*2}`]
+
       }
+    
+    document.getElementById(id).style.color="red";
+    console.log(id)
+
+    setChooseFee(document.getElementById(id).innerText)      
+    }
   
     }
 
@@ -127,7 +145,15 @@ function Table({result}) {
   console.log("choose", chooseFee)
 
 
-  if (result["delivery"] == "일반배송"){
+  if (result["delivery"] === "일반배송"){
+    tdPreview.push(
+    <tr>
+      <th>일자/시간</th>
+      <th>{`${nowInfo.month}월 ${nowInfo.date}일 (${nowInfo.week})`}</th>
+      <th>{`${tomorrowInfo.month}월 ${tomorrowInfo.date}일 (${tomorrowInfo.week})`}</th>
+      <th>{`${futureInfo.month}월 ${futureInfo.date}일 (${futureInfo.week})`}</th>
+    </tr>
+    )
   times.forEach((time) => {
     tdPreview.push(
       <tr>
@@ -139,31 +165,46 @@ function Table({result}) {
     )
     idx += 2
   })
-  } else{
+  } else if (result["delivery"] === "새벽배송"){
     tdPreview.push(        
 
       <tr>
         <th>일자/시간 <br/> </th>
-        <th id="td_now" className = {validate_now} onClick = {(e) => selectTd(e.target.id)}>{`${nowInfo.month}월 ${nowInfo.date}일 `} <br/><br/> {validate_now}</th>
-        <th id="td_tommorow" className = "th_click"  onClick = {(e) => selectTd(e.target.id)}>{`${tomorrowInfo.month}월 ${tomorrowInfo.date}일`}<br/><br/> click</th>
-        <th id="td_future"  className = "th_click" onClick = {(e) => selectTd(e.target.id)}>{`${futureInfo.month}월 ${futureInfo.date}일`}<br/><br/> click</th>
+        <th id="td_now" className = {validate_now} onClick = {(e) => selectTd(e.target.id)}>{`${nowInfo.month}월 ${nowInfo.date}일 (${nowInfo.week})`} <br/><br/> {validate_now}</th>
+        <th id="td_tommorow" className = "th_click"  onClick = {(e) => selectTd(e.target.id)}>{`${tomorrowInfo.month}월 ${tomorrowInfo.date}일 (${tomorrowInfo.week})`}<br/><br/> click</th>
+        <th id="td_future"  className = "th_click" onClick = {(e) => selectTd(e.target.id)}>{`${futureInfo.month}월 ${futureInfo.date}일 (${futureInfo.week})`}<br/><br/> click</th>
       </tr>
-  )
-}
+    )
+  } else if (result["delivery"] === "당일배송"){
+    tdPreview.push(
+    <tr>
+      <th>일자/시간</th>
+      <th>{`${nowInfo.month}월 ${nowInfo.date}일 (${nowInfo.week})`}</th>
+      <th>{`${tomorrowInfo.month}월 ${tomorrowInfo.date}일 (${tomorrowInfo.week})`}</th>
+      <th>{`${futureInfo.month}월 ${futureInfo.date}일 (${futureInfo.week})`}</th>
+    </tr>
+    )
+    for (let i = 0; i < 7; i++){
+      
+      tdPreview.push(
+      <tr>
+        <td>{i * 2 } ~ {(i+1) * 2} 시</td>
+        <td id={`1_${i*2}`} onClick={(e) => selectTd(e.target.id) } >click</td>
+        <td id={`2_${i*2}`} onClick={(e) => selectTd(e.target.id)} >click</td>
+        <td id={`3_${i*2}`} onClick={(e) => selectTd(e.target.id)} >click</td>
+      </tr>
+      )
+    }
+  }
 
 
   // -----------------------------------------------------------
   
 
-  return result["delivery"] === "일반배송" ? (
+  return result["delivery"] !== "새벽배송" ? (
     <div className="table">
       <table>
-        <tr>
-          <th>일자/시간</th>
-          <th>{`${nowInfo.month}월 ${nowInfo.date}일 (${nowInfo.week})`}</th>
-          <th>{`${tomorrowInfo.month}월 ${tomorrowInfo.date}일 (${tomorrowInfo.week})`}</th>
-          <th>{`${futureInfo.month}월 ${futureInfo.date}일 (${futureInfo.week})`}</th>
-        </tr>
+
         {tdPreview}
       </table> 
       <button 

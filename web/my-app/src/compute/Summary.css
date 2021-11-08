@@ -5,7 +5,8 @@
 .price-container {
     background-color: #ffffff;
     margin: 10px;
-    padding: 100px;
+    padding: 50px 100px 50px 100px;
+
 }
 
 .price-list {

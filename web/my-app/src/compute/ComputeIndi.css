@@ -101,6 +101,6 @@ button:hover {
     font-size: 12px;
     color: #707070;
     margin-bottom: 10px;
-    text-align: center;
+    /* text-align: center; */
     margin-left: 300px;
 }

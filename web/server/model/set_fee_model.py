@@ -81,5 +81,5 @@ def set_fee(array):
         if time in time_fee_[i]:
             time_weight = i
 
-    total = distance_weight + time_weight + quantity_weight
-    return distance_weight, time_weight, quantity_weight, total
+    total = int(distance_weight) + int(time_weight) + int(quantity_weight)
+    return int(distance_weight), int(time_weight), int(quantity_weight), total

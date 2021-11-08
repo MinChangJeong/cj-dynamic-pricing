@@ -135,7 +135,7 @@ function Summary({result,type, minFee}) {
                         <div className="space">+{orderTime.fee}원</div>
                         <div className="space">+{distance.fee}원</div>
                         <div className="space">+{option.fee}원</div>
-                        <div className="space">+100원</div>
+                        <div className="space">+200원</div>
                         <div className="space">- {discount.benefits}원</div>
                         
                     </div>

@@ -84,7 +84,7 @@ def set_fee(req_data_dict):
         last_fee_ = fee_ + category_weight
 
         time_weight = 0
-        return int(distance_weight), int(time_weight), (100-int(discount_weight)), int(category_weight), int(last_fee_), int(time), int(distance), storage, int(quantity)
+        return int(distance_weight), int(time_weight), (200-int(discount_weight)), int(category_weight), int(last_fee_), int(time), int(distance), storage, int(quantity)
 
     elif req_data_dict["btnType"] == "btnIndi":
         time = req_data_dict["time"]
@@ -109,6 +109,8 @@ def set_fee(req_data_dict):
 
         distance_weight, time_weight, discount_weight, total = MODEL_FEE(set_option_fee)
 
+        print(discount_weight)
+
         option_weight = 0
         if option == "N":
             option_weight = 300
@@ -129,9 +131,10 @@ def set_fee(req_data_dict):
         else:
             price_weight = 0
 
-        fee_ = total + initial_fee        
+        fee_ = total + initial_fee - discount_weight  
         last_fee_ = fee_ + option_weight
-        return int(distance_weight), int(time_weight), (100-int(discount_weight)), int(option_weight), int(price_weight), int(distance), int(time), int(quantity), int(last_fee_), int(price), delivery
+
+        return int(distance_weight), int(time_weight), (200-int(discount_weight)), int(option_weight), int(price_weight), int(distance), int(time), int(quantity), int(last_fee_), int(price), delivery
 
     # sender = ()
     # receiver = ()
