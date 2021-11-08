@@ -184,6 +184,7 @@ function ComputeIndi() {
                 setNExpress(true)
                 setFExpress(false)
                 setBExpress(false)
+                setBtnSum(false)
                 ChangeColorBtn1()
               }
             }>당일배송</button>
@@ -192,6 +193,7 @@ function ComputeIndi() {
                 setNExpress(false)
                 setFExpress(true)
                 setBExpress(false)
+                setBtnSum(false)
                 ChangeColorBtn2()
               }
             }>새벽배송</button>
@@ -200,6 +202,7 @@ function ComputeIndi() {
                 setNExpress(false)
                 setFExpress(false)
                 setBExpress(true)
+                setBtnSum(false)
                 ChangeColorBtn3()
               }
             }>일반배송</button>

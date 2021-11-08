@@ -5,13 +5,14 @@ import Summary from "../compute/Summary";
 
 function Table({result}) {
   console.log(result)
-
+// result["delivery"] == "일반배송"
   const [now, setNow] = useState(new Date());
   const [nowInfo, setNowInfo] = useState(
     {
       month : now.getMonth()+1,
       date : now.getDate(),
       week : now.getDay(),
+      hours : now.getHours()
     }
   )
 
@@ -83,29 +84,50 @@ function Table({result}) {
   const [chooseFee, setChooseFee] = useState(null);
 
   const selectTd = (id) => {
-    for(var i=0; i<=22; ) {
-      document.getElementById(`1_${i}`).style.color="black"
-      document.getElementById(`2_${i}`).style.color="black"
-      document.getElementById(`3_${i}`).style.color="black"
+    try {
+      for(var i=0; i<=22; ) {
+        document.getElementById(`1_${i}`).style.color="black"
+        document.getElementById(`2_${i}`).style.color="black"
+        document.getElementById(`3_${i}`).style.color="black"
+  
+  
+        document.getElementById(`1_${i}`).innerText = result['predict'][`1_${i}`] ? result['predict'][`1_${i}`] : "예약 불가"
+        document.getElementById(`2_${i}`).innerText =result['predict'][`2_${i}`]
+        document.getElementById(`3_${i}`).innerText =result['predict'][`3_${i}`]
+  
+        i+=2;
+      }
+      
+      document.getElementById(id).style.color="red";
+      console.log(id)
+  
+      setChooseFee(document.getElementById(id).innerText)
 
-
-      document.getElementById(`1_${i}`).innerText = result['predict'][`1_${i}`] ? result['predict'][`1_${i}`] : "예약 불가"
-      document.getElementById(`2_${i}`).innerText =result['predict'][`2_${i}`]
-      document.getElementById(`3_${i}`).innerText =result['predict'][`3_${i}`]
-
-      i+=2;
+    } catch (error) {
+        document.getElementById(`td_now`).style.color="black"
+        document.getElementById(`td_tommorow`).style.color="black"
+        document.getElementById(`td_future`).style.color="black"
+  
+        document.getElementById(id).style.color="red";
+  
+        setChooseFee(document.getElementById(id).className)    
+        // setChooseFee(validate_now)    
+ 
+      }
+  
     }
-    
-    document.getElementById(id).style.color="red";
-    console.log(id)
-
-    setChooseFee(document.getElementById(id).innerText)
-  }
 
   var times =["0~2", "2~4", "4~6", "6~8", "8~10", "10~12", "12~14", "14~16", "16~18", "18~20", "20~22", "22~23:59" ]
 
   var idx = 0;
 
+
+  var validate_now = "";
+  (nowInfo.hours > 14) ? (validate_now = "불가") : (validate_now = "th_click")
+  console.log("choose", chooseFee)
+
+
+  if (result["delivery"] == "일반배송"){
   times.forEach((time) => {
     tdPreview.push(
       <tr>
@@ -117,12 +139,23 @@ function Table({result}) {
     )
     idx += 2
   })
+  } else{
+    tdPreview.push(        
+
+      <tr>
+        <th>일자/시간 <br/> </th>
+        <th id="td_now" className = {validate_now} onClick = {(e) => selectTd(e.target.id)}>{`${nowInfo.month}월 ${nowInfo.date}일 `} <br/><br/> {validate_now}</th>
+        <th id="td_tommorow" className = "th_click"  onClick = {(e) => selectTd(e.target.id)}>{`${tomorrowInfo.month}월 ${tomorrowInfo.date}일`}<br/><br/> click</th>
+        <th id="td_future"  className = "th_click" onClick = {(e) => selectTd(e.target.id)}>{`${futureInfo.month}월 ${futureInfo.date}일`}<br/><br/> click</th>
+      </tr>
+  )
+}
+
 
   // -----------------------------------------------------------
   
-  console.log(chooseFee)
 
-  return (
+  return result["delivery"] === "일반배송" ? (
     <div className="table">
       <table>
         <tr>
@@ -134,7 +167,7 @@ function Table({result}) {
         {tdPreview}
       </table> 
       <button 
-        onClick={() => SetBtnSum(true)}
+        onClick={() => SetBtnSum(!btnSum)}
       >
         최종 금액 확인하기
       </button>
@@ -146,7 +179,31 @@ function Table({result}) {
         )
       }
     </div>
-  );
+  ) : (
+  <div className="table">
+    <table>
+      {tdPreview}
+    </table> 
+    {
+      chooseFee === "th_click" ? (
+        <button 
+        onClick={() => SetBtnSum(!btnSum)}
+      >
+        최종 금액 확인하기
+      </button>
+      ) : (
+        null
+      )
+    }
+  {
+    (btnSum && chooseFee === "th_click") ? (
+      <Summary result={result} type="individual_F" minFee={0}/>
+    ) : (
+      null
+    )
+  }
+</div> )
 }
+
 
 export default Table;
