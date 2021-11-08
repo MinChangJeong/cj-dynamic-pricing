@@ -99,7 +99,8 @@ function ComputeIndi() {
   // server 호출---------------------------------------------
 
   const handleSubmit = () => {
-    setBtnSum(true)
+    
+    setBtnSum(!btnSum)
    
     const inputRequest = {
       time : new Date().getHours(),

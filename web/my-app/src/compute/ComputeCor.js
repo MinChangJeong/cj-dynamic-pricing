@@ -216,13 +216,13 @@ function ComputeCor() {
               }>냉장, 냉동</button>
             </div>
           </div>
-          {
+          {/* {
             nExpress ? (
               <span className="alert">수도권일 경우만 가능합니다.</span>
             ) : fExpress ? (
               <span className="alert">수도권일 경우만 가능합니다.</span>
             ) : null
-          }
+          } */}
           <div className="sub">
             <span className="title">월 출고량</span>
             <input 

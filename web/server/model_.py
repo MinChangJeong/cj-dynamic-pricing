@@ -67,7 +67,8 @@ def set_fee(req_data_dict):
         quantity = int(req_data_dict["quantity"])
         # category_count = CATEGORY_COUNT(CATEGORY[req_data_dict["category"]]) ## code_count(codeID)
 
-        storage = "I" if req_data_dict["category"] == "식품" else "F"
+        storage = "I" if (req_data_dict["category"] == "식품" ) and (option[1]) else "F" 
+        # storage = "I" if (req_data_dict["category"] == "식품" ) else "F" 
 
         sender = (send_location[0], send_location[1])
         receiver = (get_location[0], get_location[1])
@@ -97,13 +98,14 @@ def set_fee(req_data_dict):
         receiver = LOCATION[req_data_dict["location"]]
 
         price = int(req_data_dict["price"])
-        if req_data_dict["price"][0]:
-            option = "N"  # 새벽
-        elif req_data_dict["price"][1]:
-            option = "F"  # 당일
-        elif req_data_dict["price"][2]:
-            option = "B"  # 일반
 
+        if req_data_dict["option"][0]:
+            option = "N" ## 당일
+        elif req_data_dict["option"][1]:
+            option = "F" ## 새벽
+        elif req_data_dict["option"][2]:
+            option = "B" ## 일반
+         
         sender = (37.384, 127.314)
 
         quantity = 1
@@ -115,11 +117,11 @@ def set_fee(req_data_dict):
 
         option_weight = 0
         if option == "N":
-            option_weight = 500
-            delivery = "새벽배송"
-        elif option == "F":
             option_weight = 300
             delivery = "당일배송"
+        elif option == "F": 
+            option_weight =  500
+            delivery = "새벽배송"
         else:
             option_weight = 0
             delivery = "일반배송"
