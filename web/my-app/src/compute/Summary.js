@@ -101,12 +101,12 @@ function Summary({result,type, minFee}) {
             });
             setTotalFee(result["fee_"]);
 
-            setTotalFee_Indi(result["fee_"] + parseInt(minFee) - result["discount_weight"]);            
+            setTotalFee_Indi(result["fee_"] + parseInt(minFee));            
         };
     }, [result])
 
     useEffect(() => {
-        setTotalFee_Indi(result["fee_"] + parseInt(minFee) - result["discount_weight"]);            
+        setTotalFee_Indi(result["fee_"] + parseInt(minFee));            
 
     },[minFee])
 
@@ -120,19 +120,22 @@ function Summary({result,type, minFee}) {
                                 <div className="space">주문시간</div>
                                 <div className="space">주고 받는 거리</div>
                                 <div className="space">배송 옵션</div>
-                                <div className="space">할인 혜택(월 출고량)</div>
+                                <div className="space">출고량</div>
+                                <div className="space">할인 혜택(출고량)</div>
                             </div>
                             <div class="detail2">
                                 <div className="space">{orderTime.time} 시</div>
                                 <div className="space">{distance.t_distance} km</div>
                                 <div className="space">{option.name}</div>
+                                <div className="space">　</div>
                                 <div className="space">{discount.quantity} 개</div>
                             </div>
                             <div className="detail3">
                                 <div className="space">+{orderTime.fee}원</div>
                                 <div className="space">+{distance.fee}원</div>
                                 <div className="space">+{option.fee}원</div>
-                                <div className="space">-{discount.benefits}원</div>
+                                <div className="space">+100원</div>
+                                <div className="space">- {discount.benefits}원</div>
                                 
                             </div>
                         </div>
@@ -155,7 +158,7 @@ function Summary({result,type, minFee}) {
                             <div class="detail2">
                                 <div className="space">{orderTime.time} 시</div>
                                 <div className="space">{distance.t_distance} km</div>
-                                <div className="space">{orderPrice.price} 원</div>
+                                <div className="space">{orderPrice.price}원</div>
                                 <div className="space">{option.name}</div>
                                 <div className="space">선택한 날짜에 대한 할인 금액</div>
                             </div>
